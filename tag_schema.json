@@ -1,0 +1,379 @@
+{
+    "schema_version": "head_tags.v1",
+    "categories": [
+      {
+        "id": "head_shape",
+        "label": "Head Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "triangle", "label": "Triangle" },
+              { "value": "round", "label": "Round" },
+              { "value": "square", "label": "Square" },
+              { "value": "oval", "label": "Oval" },
+              { "value": "heart", "label": "Heart" },
+              { "value": "diamond", "label": "Diamond" },
+              { "value": "rectangle", "label": "Rectangle" }
+            ]
+          },
+          {
+            "id": "size",
+            "label": "Size",
+            "type": "single_select",
+            "options": [
+              { "value": "thin", "label": "Thin" },
+              { "value": "mid", "label": "Mid" },
+              { "value": "wide", "label": "Wide" }
+            ]
+          },
+          {
+            "id": "length",
+            "label": "Length",
+            "type": "single_select",
+            "options": [
+              { "value": "long", "label": "Long" },
+              { "value": "mid", "label": "Mid" },
+              { "value": "short", "label": "Short" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "nose_shape",
+        "label": "Nose Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "aquiline", "label": "Aquiline (Roman)" },
+              { "value": "straight", "label": "Straight (Greek)" },
+              { "value": "button", "label": "Button" },
+              { "value": "hawk", "label": "Hawk" },
+              { "value": "nubian", "label": "Nubian" },
+              { "value": "round", "label": "Round (Fleshy)" },
+              { "value": "upturned", "label": "Upturned (Celestial)" },
+              { "value": "flat", "label": "Flat (Wide)" }
+            ]
+          },
+          {
+            "id": "size",
+            "label": "Size",
+            "type": "single_select",
+            "options": [
+              { "value": "thin", "label": "Thin" },
+              { "value": "mid", "label": "Mid" },
+              { "value": "wide", "label": "Wide" }
+            ]
+          },
+          {
+            "id": "length",
+            "label": "Length",
+            "type": "single_select",
+            "options": [
+              { "value": "long", "label": "Long" },
+              { "value": "mid", "label": "Mid" },
+              { "value": "short", "label": "Short" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "eyes_shape",
+        "label": "Eyes Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "almond", "label": "Almond" },
+              { "value": "round", "label": "Round" },
+              { "value": "hooded", "label": "Hooded" },
+              { "value": "monolid", "label": "Monolid" },
+              { "value": "upturned", "label": "Upturned" },
+              { "value": "downturned", "label": "Downturned" },
+              { "value": "narrow", "label": "Narrow" },
+              { "value": "protruding", "label": "Protruding" }
+            ]
+          },
+          {
+            "id": "size",
+            "label": "Size",
+            "type": "single_select",
+            "options": [
+              { "value": "large", "label": "Large" },
+              { "value": "mid", "label": "Mid" },
+              { "value": "small", "label": "Small" }
+            ]
+          },
+          {
+            "id": "height",
+            "label": "Height Placement",
+            "type": "single_select",
+            "options": [
+              { "value": "high", "label": "High" },
+              { "value": "mid", "label": "Mid" },
+              { "value": "low", "label": "Low" }
+            ]
+          },
+          {
+            "id": "width",
+            "label": "Width Placement",
+            "type": "single_select",
+            "options": [
+              { "value": "wide-set", "label": "Wide-set" },
+              { "value": "mid-set", "label": "Mid-set" },
+              { "value": "close-set", "label": "Close-set" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "lips_shape",
+        "label": "Lips Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "full", "label": "Full" },
+              { "value": "top-heavy", "label": "Top-heavy" },
+              { "value": "bottom-heavy", "label": "Bottom-heavy" },
+              { "value": "flat", "label": "Flat" },
+              { "value": "thin", "label": "Thin" }
+            ]
+          },
+          {
+            "id": "proportion",
+            "label": "Proportion",
+            "type": "single_select",
+            "options": [
+              { "value": "large", "label": "Large" },
+              { "value": "small", "label": "Small" },
+              { "value": "projected", "label": "Projected" },
+              { "value": "retracted", "label": "Retracted" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mouth_shape",
+        "label": "Mouth Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "horizontal", "label": "Horizontal" },
+              { "value": "downturned", "label": "Downturned" },
+              { "value": "upturned", "label": "Upturned" }
+            ]
+          },
+          {
+            "id": "proportion",
+            "label": "Proportion",
+            "type": "single_select",
+            "options": [
+              { "value": "wide", "label": "Wide" },
+              { "value": "narrow", "label": "Narrow" },
+              { "value": "high", "label": "High" },
+              { "value": "low", "label": "Low" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "chin_shape",
+        "label": "Chin Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "square", "label": "Square" },
+              { "value": "round", "label": "Round" },
+              { "value": "pointed", "label": "Pointed" },
+              { "value": "oval", "label": "Oval" },
+              { "value": "flat", "label": "Flat" },
+              { "value": "cleft", "label": "Cleft" },
+              { "value": "dimpled", "label": "Dimpled" },
+              { "value": "no-cleft", "label": "No-cleft" }
+            ]
+          },
+          {
+            "id": "proportion",
+            "label": "Proportion",
+            "type": "single_select",
+            "options": [
+              { "value": "wide", "label": "Wide" },
+              { "value": "narrow", "label": "Narrow" },
+              { "value": "tall", "label": "Tall" },
+              { "value": "short", "label": "Short" },
+              { "value": "projected", "label": "Projected" },
+              { "value": "receding", "label": "Receding" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "jaw_shape",
+        "label": "Jaw Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "square", "label": "Square" },
+              { "value": "round", "label": "Round" },
+              { "value": "tapered", "label": "Tapered" },
+              { "value": "pointed", "label": "Pointed" },
+              { "value": "angular", "label": "Angular" },
+              { "value": "curved", "label": "Curved" },
+              { "value": "defined", "label": "Defined" }
+            ]
+          },
+          {
+            "id": "proportion",
+            "label": "Proportion",
+            "type": "single_select",
+            "options": [
+              { "value": "wide", "label": "Wide" },
+              { "value": "narrow", "label": "Narrow" },
+              { "value": "short", "label": "Short" },
+              { "value": "long", "label": "Long" },
+              { "value": "high", "label": "High" },
+              { "value": "low", "label": "Low" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cheeks_shape",
+        "label": "Cheeks Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "round", "label": "Round" },
+              { "value": "flat", "label": "Flat" },
+              { "value": "full", "label": "Full" },
+              { "value": "angular", "label": "Angular" },
+              { "value": "hollow", "label": "Hollow" },
+              { "value": "soft", "label": "Soft" },
+              { "value": "sharp", "label": "Sharp" },
+              { "value": "defined", "label": "Defined" },
+              { "value": "convex", "label": "Convex" },
+              { "value": "concave", "label": "Concave" }
+            ]
+          },
+          {
+            "id": "proportion",
+            "label": "Proportion",
+            "type": "single_select",
+            "options": [
+              { "value": "high", "label": "High" },
+              { "value": "low", "label": "Low" },
+              { "value": "wide", "label": "Wide" },
+              { "value": "thin", "label": "Thin" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "brow_shape",
+        "label": "Brow Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "sharp", "label": "Sharp" },
+              { "value": "rounded", "label": "Rounded" },
+              { "value": "flat", "label": "Flat" },
+              { "value": "angular", "label": "Angular" },
+              { "value": "convex", "label": "Convex" },
+              { "value": "concave", "label": "Concave" },
+              { "value": "prominent", "label": "Prominent" },
+              { "value": "recessed", "label": "Recessed" },
+              { "value": "overhanging", "label": "Overhanging" }
+            ]
+          },
+          {
+            "id": "proportion",
+            "label": "Proportion",
+            "type": "single_select",
+            "options": [
+              { "value": "wide", "label": "Wide" },
+              { "value": "narrow", "label": "Narrow" },
+              { "value": "tall", "label": "Tall" },
+              { "value": "shallow", "label": "Shallow" },
+              { "value": "high", "label": "High" },
+              { "value": "low", "label": "Low" },
+              { "value": "heavy", "label": "Heavy" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "forehead_shape",
+        "label": "Forehead Shape",
+        "fields": [
+          {
+            "id": "shape",
+            "label": "Shape",
+            "type": "multi_select",
+            "options": [
+              { "value": "flat", "label": "Flat" },
+              { "value": "convex", "label": "Convex" },
+              { "value": "concave", "label": "Concave" },
+              { "value": "sloped", "label": "Sloped" },
+              { "value": "raked", "label": "Raked" }
+            ]
+          },
+          {
+            "id": "proportion",
+            "label": "Proportion",
+            "type": "single_select",
+            "options": [
+              { "value": "high", "label": "High" },
+              { "value": "low", "label": "Low" },
+              { "value": "wide", "label": "Wide" },
+              { "value": "thin", "label": "Thin" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ethnicity",
+        "label": "Ethnicity",
+        "fields": [
+          {
+            "id": "value",
+            "label": "Ethnicity",
+            "type": "multi_select",
+            "options": [
+              { "value": "asian", "label": "Asian" },
+              { "value": "indian", "label": "Indian" },
+              { "value": "middle_eastern", "label": "Middle Eastern" },
+              { "value": "african", "label": "African" },
+              { "value": "caucasian", "label": "Caucasian" },
+              { "value": "latino", "label": "Latino" },
+              { "value": "pacific_islander", "label": "Pacific Islander" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
