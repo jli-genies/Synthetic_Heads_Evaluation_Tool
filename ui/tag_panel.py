@@ -111,6 +111,7 @@ class TagPanel(QWidget):
         self.schema_path = Path(schema_path)
         self.schema = self._load_schema()
         self.controls: dict[tuple[str, str], QComboBox] = {}
+        self.setMinimumWidth(300)
 
         title = QLabel("Tag Attributes")
         title.setObjectName("sectionTitle")

@@ -40,30 +40,36 @@ class MainWindow(QMainWindow):
         self.current_asset: Path | None = None
 
         self.asset_tree = AssetTree(project_root=self.project_root)
+        self.asset_tree.setMinimumWidth(240)
         self.asset_tree.asset_selected.connect(self._select_asset)
         self.asset_tree.status_message.connect(self.status_bar_message)
         self.asset_tree.render_finished.connect(self._on_render_finished)
 
         self.render_panel = RenderPanel(project_root=self.project_root)
+        self.render_panel.setMinimumWidth(520)
         self.render_panel.previous_requested.connect(lambda: self._navigate(-1))
         self.render_panel.next_requested.connect(lambda: self._navigate(1))
         self.render_panel.download_requested.connect(self.download_asset)
 
         self.tag_panel = TagPanel(self.project_root / "tag_schema.json")
+        self.tag_panel.setMinimumWidth(320)
         self.tag_panel.submit_requested.connect(self.save_tags)
 
-        splitter = QSplitter(Qt.Orientation.Horizontal)
-        splitter.addWidget(self.asset_tree)
-        splitter.addWidget(self.render_panel)
-        splitter.addWidget(self.tag_panel)
-        splitter.setSizes([280, 650, 430])
-        splitter.setStretchFactor(0, 0)
-        splitter.setStretchFactor(1, 1)
-        splitter.setStretchFactor(2, 0)
-        splitter.setCollapsible(0, False)
-        splitter.setCollapsible(1, False)
-        splitter.setCollapsible(2, False)
-        self.setCentralWidget(splitter)
+        self.splitter = QSplitter(Qt.Orientation.Horizontal)
+        self.splitter.setChildrenCollapsible(False)
+        self.splitter.setHandleWidth(6)
+        self.splitter.setOpaqueResize(True)
+        self.splitter.addWidget(self.asset_tree)
+        self.splitter.addWidget(self.render_panel)
+        self.splitter.addWidget(self.tag_panel)
+        self.splitter.setSizes([280, 720, 400])
+        self.splitter.setStretchFactor(0, 0)
+        self.splitter.setStretchFactor(1, 1)
+        self.splitter.setStretchFactor(2, 0)
+        self.splitter.setCollapsible(0, False)
+        self.splitter.setCollapsible(1, False)
+        self.splitter.setCollapsible(2, False)
+        self.setCentralWidget(self.splitter)
 
         self.status_bar = QStatusBar(self)
         self.setStatusBar(self.status_bar)
@@ -290,7 +296,7 @@ QPushButton#primaryButton:hover, QPushButton#rootButton:hover {
 }
 QSplitter::handle {
     background: #cbd1da;
-    width: 1px;
+    width: 6px;
 }
 """
 

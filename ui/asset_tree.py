@@ -6,7 +6,7 @@ import shutil
 from pathlib import Path
 
 from PyQt6.QtCore import Qt, QProcess, pyqtSignal
-from PyQt6.QtGui import QColor, QBrush
+from PyQt6.QtGui import QBrush, QColor
 from PyQt6.QtWidgets import (
     QFileDialog,
     QLabel,
@@ -63,8 +63,12 @@ class AssetTree(QWidget):
         self._folder_items: dict[Path, QTreeWidgetItem] = {}
         self._process: QProcess | None = None
         self._pending_asset: Path | None = None
+        self._render_queue: list[Path] = []
+        self._batch_total = 0
+        self._batch_failed = 0
 
         self.setObjectName("browserPanel")
+        self.setMinimumWidth(220)
 
         self.root_button = QPushButton("Choose root folder…")
         self.root_button.setObjectName("rootButton")
@@ -90,7 +94,23 @@ class AssetTree(QWidget):
         )
         self.load_button.clicked.connect(self.load_selected_asset)
 
-        self.hint_label = QLabel("Select a .glb or .fbx, then Load to generate previews.")
+        self.load_folder_button = QPushButton("Load / render folder")
+        self.load_folder_button.setObjectName("primaryButton")
+        self.load_folder_button.setEnabled(False)
+        self.load_folder_button.setToolTip(
+            "Queue every .glb/.fbx in this folder. Assets that already have "
+            "front + side_r previews are skipped unless you choose to re-render."
+        )
+        self.load_folder_button.clicked.connect(self.load_folder_assets)
+
+        self.cancel_button = QPushButton("Cancel batch")
+        self.cancel_button.setEnabled(False)
+        self.cancel_button.clicked.connect(self.cancel_batch)
+
+        self.hint_label = QLabel(
+            "Choose a folder to list assets. Use Load / render folder for the whole set, "
+            "or select one asset and Load / render selected."
+        )
         self.hint_label.setObjectName("rootLabel")
         self.hint_label.setWordWrap(True)
 
@@ -100,7 +120,9 @@ class AssetTree(QWidget):
         layout.addWidget(self.root_label)
         layout.addWidget(self.tree, 1)
         layout.addWidget(self.hint_label)
+        layout.addWidget(self.load_folder_button)
         layout.addWidget(self.load_button)
+        layout.addWidget(self.cancel_button)
 
     @property
     def current_asset(self) -> Path | None:
@@ -117,6 +139,9 @@ class AssetTree(QWidget):
             self.set_root_folder(Path(selected))
 
     def set_root_folder(self, root_path: Path) -> None:
+        if self._is_busy():
+            QMessageBox.warning(self, "Render in progress", "Cancel the batch before changing folders.")
+            return
         self.root_path = root_path.resolve()
         self.root_label.setText(str(self.root_path))
         self.root_label.setToolTip(str(self.root_path))
@@ -124,6 +149,7 @@ class AssetTree(QWidget):
         self._rebuild_tree()
         self.asset_selected.emit(None)
         self.assets_changed.emit()
+        self.load_folder_button.setEnabled(bool(self.assets))
         self.status_message.emit(f"Found {len(self.assets)} .glb/.fbx assets.")
 
     def select_asset(self, asset_path: Path | None) -> None:
@@ -131,7 +157,7 @@ class AssetTree(QWidget):
         if asset_path is None:
             self.tree.clearSelection()
             self.tree.setCurrentItem(None)
-            self.load_button.setEnabled(False)
+            self._update_action_buttons()
             self.asset_selected.emit(None)
             return
 
@@ -149,54 +175,68 @@ class AssetTree(QWidget):
         if asset is None:
             QMessageBox.information(self, "No asset selected", "Select a .glb or .fbx first.")
             return
-        if self._process is not None and self._process.state() != QProcess.ProcessState.NotRunning:
+        if self._is_busy():
             QMessageBox.warning(self, "Render in progress", "Wait for the current Load to finish.")
             return
+        self._start_queue([asset])
 
-        blender = find_blender_executable()
-        if blender is None:
-            QMessageBox.critical(
-                self,
-                "Blender not found",
-                "Could not find blender.exe. Install Blender or add it to PATH.",
-            )
+    def load_folder_assets(self) -> None:
+        """Queue renders for every asset in the chosen folder (skip existing by default)."""
+        if not self.assets:
+            QMessageBox.information(self, "No assets", "Choose a root folder with .glb/.fbx files first.")
+            return
+        if self._is_busy():
+            QMessageBox.warning(self, "Render in progress", "Wait for the current batch to finish.")
             return
 
-        scene = self.project_root / "blender" / "cameraSetup.blend"
-        script = self.project_root / "blender" / "render_head.py"
-        output_dir = self.project_root / "renders" / asset.stem
-        if not scene.is_file() or not script.is_file():
-            QMessageBox.critical(
+        missing = [asset for asset in self.assets if not self._has_renders(asset)]
+        already = len(self.assets) - len(missing)
+
+        if not missing:
+            answer = QMessageBox.question(
                 self,
-                "Missing render files",
-                f"Expected:\n{scene}\n{script}",
+                "All assets already rendered",
+                f"All {len(self.assets)} assets already have previews in renders/.\n\n"
+                "Re-render the entire folder?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No,
             )
-            return
+            if answer != QMessageBox.StandardButton.Yes:
+                return
+            queue = list(self.assets)
+        else:
+            message = (
+                f"Found {len(self.assets)} assets.\n"
+                f"{len(missing)} need rendering"
+                + (f"; {already} already have previews and will be skipped." if already else ".")
+                + "\n\nStart batch render for missing assets?"
+            )
+            if already:
+                message += "\n\nChoose Yes = missing only, No = cancel.\nUse Yes after clearing renders/ to force all."
+            answer = QMessageBox.question(
+                self,
+                "Load / render folder",
+                message,
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.Yes,
+            )
+            if answer != QMessageBox.StandardButton.Yes:
+                return
+            queue = missing
 
-        output_dir.mkdir(parents=True, exist_ok=True)
-        args = [
-            "--background",
-            str(scene),
-            "--python",
-            str(script),
-            "--",
-            str(asset),
-            "--output-dir",
-            str(output_dir),
-            "--views",
-            "front",
-            "side_r",
-        ]
+        self._start_queue(queue)
 
-        self._pending_asset = asset
-        self.load_button.setEnabled(False)
-        self.status_message.emit(f"Rendering {asset.name}…")
-
-        self._process = QProcess(self)
-        self._process.setProcessChannelMode(QProcess.ProcessChannelMode.MergedChannels)
-        self._process.finished.connect(self._on_render_finished)
-        self._process.errorOccurred.connect(self._on_render_error)
-        self._process.start(str(blender), args)
+    def cancel_batch(self) -> None:
+        """Stop queued renders; the current Blender job is left to finish."""
+        skipped = len(self._render_queue)
+        self._render_queue.clear()
+        self.cancel_button.setEnabled(False)
+        if skipped:
+            self.status_message.emit(
+                f"Batch cancelled ({skipped} queued assets skipped). Current render may still finish."
+            )
+        else:
+            self.status_message.emit("No queued assets left to cancel.")
 
     def refresh_render_status(self) -> None:
         for item in self._iter_asset_items():
@@ -221,6 +261,86 @@ class AssetTree(QWidget):
         mark = "[x] " if rendered else "[ ] "
         return f"{mark}{asset.name}"
 
+    def _is_busy(self) -> bool:
+        return bool(self._render_queue) or (
+            self._process is not None and self._process.state() != QProcess.ProcessState.NotRunning
+        )
+
+    def _update_action_buttons(self) -> None:
+        busy = self._is_busy()
+        self.load_button.setEnabled(self.current_asset is not None and not busy)
+        self.load_folder_button.setEnabled(bool(self.assets) and not busy)
+        self.cancel_button.setEnabled(busy and bool(self._render_queue))
+        self.root_button.setEnabled(not busy)
+
+    def _start_queue(self, assets: list[Path]) -> None:
+        if not assets:
+            return
+        blender = find_blender_executable()
+        if blender is None:
+            QMessageBox.critical(
+                self,
+                "Blender not found",
+                "Could not find blender.exe. Install Blender or add it to PATH.",
+            )
+            return
+
+        scene = self.project_root / "blender" / "cameraSetup.blend"
+        script = self.project_root / "blender" / "render_head.py"
+        if not scene.is_file() or not script.is_file():
+            QMessageBox.critical(
+                self,
+                "Missing render files",
+                f"Expected:\n{scene}\n{script}",
+            )
+            return
+
+        self._render_queue = list(assets)
+        self._batch_total = len(assets)
+        self._batch_failed = 0
+        self._update_action_buttons()
+        self.status_message.emit(f"Queued {self._batch_total} asset(s) for rendering…")
+        self._start_next_in_queue()
+
+    def _start_next_in_queue(self) -> None:
+        if not self._render_queue:
+            self._update_action_buttons()
+            return
+
+        asset = self._render_queue.pop(0)
+        blender = find_blender_executable()
+        scene = self.project_root / "blender" / "cameraSetup.blend"
+        script = self.project_root / "blender" / "render_head.py"
+        output_dir = self.project_root / "renders" / asset.stem
+        assert blender is not None
+
+        output_dir.mkdir(parents=True, exist_ok=True)
+        args = [
+            "--background",
+            str(scene),
+            "--python",
+            str(script),
+            "--",
+            str(asset),
+            "--output-dir",
+            str(output_dir),
+            "--views",
+            "front",
+            "side_r",
+        ]
+
+        done = self._batch_total - len(self._render_queue)
+        self._pending_asset = asset
+        self.select_asset(asset)
+        self.status_message.emit(f"Rendering {done}/{self._batch_total}: {asset.name}…")
+        self._update_action_buttons()
+
+        self._process = QProcess(self)
+        self._process.setProcessChannelMode(QProcess.ProcessChannelMode.MergedChannels)
+        self._process.finished.connect(self._on_render_finished)
+        self._process.errorOccurred.connect(self._on_render_error)
+        self._process.start(str(blender), args)
+
     def _rebuild_tree(self) -> None:
         self.tree.clear()
         self._folder_items.clear()
@@ -243,7 +363,7 @@ class AssetTree(QWidget):
             parent.addChild(item)
 
         self.tree.expandAll()
-        self.load_button.setEnabled(False)
+        self._update_action_buttons()
 
     def _folder_item_for(self, folder: Path) -> QTreeWidgetItem:
         folder = folder.resolve()
@@ -280,10 +400,7 @@ class AssetTree(QWidget):
             path = current.data(0, PATH_ROLE)
             if path:
                 asset = Path(path)
-        self.load_button.setEnabled(
-            asset is not None
-            and (self._process is None or self._process.state() == QProcess.ProcessState.NotRunning)
-        )
+        self._update_action_buttons()
         self.asset_selected.emit(asset)
 
     def _on_render_finished(self, exit_code: int, _status) -> None:
@@ -292,28 +409,46 @@ class AssetTree(QWidget):
         if self._process is not None:
             raw = self._process.readAllStandardOutput()
             output = raw.data().decode("utf-8", errors="replace")
+            self._process.deleteLater()
         self._process = None
         self._pending_asset = None
-        self.load_button.setEnabled(self.current_asset is not None)
 
         if exit_code != 0 or asset is None:
+            self._batch_failed += 1
             details = output.strip() or f"Exit code {exit_code}"
-            QMessageBox.critical(self, "Render failed", details[-2000:])
-            self.status_message.emit(f"Render failed for {asset.name if asset else 'asset'}.")
+            # In a batch, keep going; only pop a dialog for single-asset loads.
+            if not self._render_queue and self._batch_total <= 1:
+                QMessageBox.critical(self, "Render failed", details[-2000:])
+            self.status_message.emit(
+                f"Render failed for {asset.name if asset else 'asset'} "
+                f"({self._batch_failed} failure(s) so far)."
+            )
+        else:
+            if self.root_path and asset.resolve() not in {path.resolve() for path in self.assets}:
+                self.assets = collect_assets(self.root_path)
+                self._rebuild_tree()
+                self.select_asset(asset)
+            else:
+                self.refresh_render_status()
+
+            self.status_message.emit(f"Rendered {asset.name} → renders/{asset.stem}/")
+            self.render_finished.emit(asset)
+            self.asset_selected.emit(asset)
+            self.assets_changed.emit()
+
+        if self._render_queue:
+            self._start_next_in_queue()
             return
 
-        # Ensure asset stays listed (re-scan in case it was added mid-session).
-        if self.root_path and asset.resolve() not in {path.resolve() for path in self.assets}:
-            self.assets = collect_assets(self.root_path)
-            self._rebuild_tree()
-            self.select_asset(asset)
-        else:
-            self.refresh_render_status()
-
-        self.status_message.emit(f"Rendered {asset.name} → renders/{asset.stem}/")
-        self.render_finished.emit(asset)
-        self.asset_selected.emit(asset)
-        self.assets_changed.emit()
+        self._update_action_buttons()
+        if self._batch_total > 1:
+            ok = self._batch_total - self._batch_failed
+            self.status_message.emit(
+                f"Batch complete: {ok}/{self._batch_total} rendered"
+                + (f", {self._batch_failed} failed." if self._batch_failed else ".")
+            )
+        self._batch_total = 0
+        self._batch_failed = 0
 
     def _on_render_error(self, error) -> None:
         self.status_message.emit(f"Blender process error: {error}")

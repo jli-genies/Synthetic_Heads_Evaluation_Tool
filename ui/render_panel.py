@@ -13,6 +13,7 @@ from PyQt6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QPushButton,
+    QScrollArea,
     QSizePolicy,
     QVBoxLayout,
     QWidget,
@@ -130,6 +131,8 @@ class RenderPanel(QWidget):
         super().__init__(parent)
         self.project_root = Path(project_root) if project_root else Path(__file__).resolve().parents[1]
         self._asset_path: Path | None = None
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.setMinimumWidth(480)
 
         title = QLabel("Renders")
         title.setObjectName("sectionTitle")
@@ -139,7 +142,9 @@ class RenderPanel(QWidget):
         self.asset_name.setObjectName("assetName")
         self.asset_name.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        grid = QHBoxLayout()
+        tiles_host = QWidget()
+        grid = QHBoxLayout(tiles_host)
+        grid.setContentsMargins(0, 0, 0, 0)
         grid.setSpacing(10)
         grid.addStretch(1)
         self.tiles: list[RenderTile] = []
@@ -148,6 +153,17 @@ class RenderPanel(QWidget):
             self.tiles.append(tile)
             grid.addWidget(tile, alignment=Qt.AlignmentFlag.AlignCenter)
         grid.addStretch(1)
+
+        # Keep fixed 512px tiles without forcing side panels to collapse when
+        # the middle splitter column is narrower than both tiles.
+        tiles_scroll = QScrollArea()
+        tiles_scroll.setWidgetResizable(True)
+        tiles_scroll.setFrameShape(QScrollArea.Shape.NoFrame)
+        tiles_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        tiles_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        tiles_scroll.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        tiles_scroll.setWidget(tiles_host)
+        tiles_scroll.setMinimumHeight(PREVIEW_SIZE // 2)
 
         self.download_button = QPushButton("Download selected asset")
         self.download_button.setObjectName("primaryButton")
@@ -170,9 +186,7 @@ class RenderPanel(QWidget):
         layout.setContentsMargins(16, 12, 16, 12)
         layout.addWidget(title)
         layout.addWidget(self.asset_name)
-        layout.addStretch(1)
-        layout.addLayout(grid)
-        layout.addStretch(1)
+        layout.addWidget(tiles_scroll, 1)
         layout.addWidget(self.download_button)
         layout.addLayout(navigation)
 
