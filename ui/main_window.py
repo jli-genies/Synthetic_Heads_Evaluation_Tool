@@ -7,36 +7,28 @@ import shutil
 import sys
 from pathlib import Path
 
-from PyQt6.QtCore import QDir, Qt
-from PyQt6.QtGui import QFileSystemModel
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QApplication,
     QFileDialog,
-    QLabel,
     QMainWindow,
     QMessageBox,
-    QPushButton,
     QSplitter,
     QStatusBar,
-    QTreeView,
-    QVBoxLayout,
-    QWidget,
 )
 
 try:
-    from .render_panel import IMAGE_EXTENSIONS, RenderPanel
+    from .asset_tree import AssetTree
+    from .render_panel import RenderPanel
     from .tag_panel import TagPanel
 except ImportError:  # Allow running this file directly.
-    from render_panel import IMAGE_EXTENSIONS, RenderPanel
+    from asset_tree import AssetTree
+    from render_panel import RenderPanel
     from tag_panel import TagPanel
 
 
-ASSET_EXTENSIONS = {".blend", ".fbx", ".obj", ".gltf", ".glb", ".usd", ".usda", ".usdc"}
-SELECTABLE_EXTENSIONS = ASSET_EXTENSIONS | IMAGE_EXTENSIONS
-
-
 class MainWindow(QMainWindow):
-    """Coordinates file browsing, render previews, and sidecar tag files."""
+    """Coordinates asset browsing, render previews, and sidecar tag files."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -45,43 +37,14 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(1050, 650)
 
         self.project_root = Path(__file__).resolve().parents[1]
-        self.root_path: Path | None = None
         self.current_asset: Path | None = None
-        self.assets: list[Path] = []
 
-        self.file_model = QFileSystemModel(self)
-        self.file_model.setFilter(QDir.Filter.AllDirs | QDir.Filter.Files | QDir.Filter.NoDotAndDotDot)
+        self.asset_tree = AssetTree(project_root=self.project_root)
+        self.asset_tree.asset_selected.connect(self._select_asset)
+        self.asset_tree.status_message.connect(self.status_bar_message)
+        self.asset_tree.render_finished.connect(self._on_render_finished)
 
-        self.root_button = QPushButton("Choose root folder…")
-        self.root_button.setObjectName("rootButton")
-        self.root_button.clicked.connect(self.choose_root_folder)
-
-        self.root_label = QLabel("No folder selected")
-        self.root_label.setObjectName("rootLabel")
-        self.root_label.setWordWrap(True)
-
-        self.tree = QTreeView()
-        self.tree.setModel(self.file_model)
-        self.tree.setHeaderHidden(True)
-        self.tree.setAlternatingRowColors(True)
-        self.tree.setAnimated(True)
-        self.tree.setIndentation(16)
-        for column in range(1, 4):
-            self.tree.hideColumn(column)
-        selection_model = self.tree.selectionModel()
-        if selection_model is None:
-            raise RuntimeError("Tree view has no selection model after setModel().")
-        selection_model.currentChanged.connect(self._tree_selection_changed)
-
-        browser = QWidget()
-        browser.setObjectName("browserPanel")
-        browser_layout = QVBoxLayout(browser)
-        browser_layout.setContentsMargins(12, 12, 12, 12)
-        browser_layout.addWidget(self.root_button)
-        browser_layout.addWidget(self.root_label)
-        browser_layout.addWidget(self.tree, 1)
-
-        self.render_panel = RenderPanel()
+        self.render_panel = RenderPanel(project_root=self.project_root)
         self.render_panel.previous_requested.connect(lambda: self._navigate(-1))
         self.render_panel.next_requested.connect(lambda: self._navigate(1))
         self.render_panel.download_requested.connect(self.download_asset)
@@ -90,10 +53,10 @@ class MainWindow(QMainWindow):
         self.tag_panel.submit_requested.connect(self.save_tags)
 
         splitter = QSplitter(Qt.Orientation.Horizontal)
-        splitter.addWidget(browser)
+        splitter.addWidget(self.asset_tree)
         splitter.addWidget(self.render_panel)
         splitter.addWidget(self.tag_panel)
-        splitter.setSizes([250, 670, 430])
+        splitter.setSizes([280, 650, 430])
         splitter.setStretchFactor(0, 0)
         splitter.setStretchFactor(1, 1)
         splitter.setStretchFactor(2, 0)
@@ -104,61 +67,85 @@ class MainWindow(QMainWindow):
 
         self.status_bar = QStatusBar(self)
         self.setStatusBar(self.status_bar)
-        self.status_bar.showMessage("Choose a folder containing head assets.")
+        self.status_bar.showMessage("Choose a folder containing .glb / .fbx assets.")
         self.setStyleSheet(STYLE_SHEET)
 
-    def choose_root_folder(self) -> None:
-        start = str(self.root_path or self.project_root)
-        selected = QFileDialog.getExistingDirectory(self, "Choose asset root folder", start)
-        if selected:
-            self.set_root_folder(Path(selected))
+    def status_bar_message(self, message: str) -> None:
+        self.status_bar.showMessage(message)
 
-    def set_root_folder(self, root_path: Path) -> None:
-        self.root_path = root_path.resolve()
-        self.root_label.setText(str(self.root_path))
-        self.root_label.setToolTip(str(self.root_path))
-        root_index = self.file_model.setRootPath(str(self.root_path))
-        self.tree.setRootIndex(root_index)
-        self.assets = sorted(
-            path
-            for path in self.root_path.rglob("*")
-            if path.is_file() and path.suffix.lower() in SELECTABLE_EXTENSIONS
-        )
-        self._select_asset(None)
-        self.status_bar.showMessage(f"Found {len(self.assets)} selectable assets.")
-
-    def _tree_selection_changed(self, current, _previous) -> None:
-        path = Path(self.file_model.filePath(current))
-        if path.is_file() and path.suffix.lower() in SELECTABLE_EXTENSIONS:
-            self._select_asset(path)
+    def _on_render_finished(self, asset_path: Path) -> None:
+        # Refresh previews once Blender writes renders/<stem>/.
+        if self.current_asset and self.current_asset.resolve() == Path(asset_path).resolve():
+            self.render_panel.set_asset(self.current_asset)
 
     def _select_asset(self, asset_path: Path | None) -> None:
-        self.current_asset = asset_path
-        self.render_panel.set_asset(asset_path)
-        self.tag_panel.set_asset(asset_path.name if asset_path else None)
+        self.current_asset = Path(asset_path) if asset_path else None
+        # #region agent log
+        try:
+            import json
+            import time
+            from pathlib import Path as _P
 
-        if asset_path:
-            self.tag_panel.set_tags(self._load_tags(asset_path))
-            self.status_bar.showMessage(f"Selected {asset_path.name}")
+            _log = _P(__file__).resolve().parents[1] / "debug-c44263.log"
+            with _log.open("a", encoding="utf-8") as fh:
+                fh.write(
+                    json.dumps(
+                        {
+                            "sessionId": "c44263",
+                            "runId": "pre-fix",
+                            "hypothesisId": "A",
+                            "location": "main_window.py:_select_asset",
+                            "message": "main window selecting asset",
+                            "data": {
+                                "asset_path": str(asset_path) if asset_path else None,
+                                "current_asset": str(self.current_asset)
+                                if self.current_asset
+                                else None,
+                            },
+                            "timestamp": int(time.time() * 1000),
+                        }
+                    )
+                    + "\n"
+                )
+        except OSError:
+            pass
+        # #endregion
+        self.render_panel.set_asset(self.current_asset)
+        self.tag_panel.set_asset(self.current_asset.name if self.current_asset else None)
+
+        if self.current_asset:
+            self.tag_panel.set_tags(self._load_tags(self.current_asset))
+            self.status_bar.showMessage(f"Selected {self.current_asset.name}")
         else:
             self.tag_panel.clear()
 
+        assets = self.asset_tree.assets
         try:
-            index = self.assets.index(asset_path) if asset_path else -1
+            index = assets.index(self.current_asset) if self.current_asset else -1
         except ValueError:
+            # Paths may differ by resolve(); compare resolved forms.
             index = -1
-        self.render_panel.set_navigation_enabled(index > 0, 0 <= index < len(self.assets) - 1)
+            if self.current_asset:
+                resolved = self.current_asset.resolve()
+                for i, path in enumerate(assets):
+                    if path.resolve() == resolved:
+                        index = i
+                        break
+        self.render_panel.set_navigation_enabled(index > 0, 0 <= index < len(assets) - 1)
 
     def _navigate(self, offset: int) -> None:
-        if self.current_asset not in self.assets:
+        assets = self.asset_tree.assets
+        if not self.current_asset or not assets:
             return
-        target_index = self.assets.index(self.current_asset) + offset
-        if not 0 <= target_index < len(self.assets):
+        resolved = self.current_asset.resolve()
+        try:
+            current_index = next(i for i, path in enumerate(assets) if path.resolve() == resolved)
+        except StopIteration:
             return
-        target = self.assets[target_index]
-        model_index = self.file_model.index(str(target))
-        self.tree.setCurrentIndex(model_index)
-        self.tree.scrollTo(model_index)
+        target_index = current_index + offset
+        if not 0 <= target_index < len(assets):
+            return
+        self.asset_tree.select_asset(assets[target_index])
 
     def save_tags(self, tags: dict) -> None:
         if not self.current_asset:
@@ -239,16 +226,16 @@ QLabel#rootLabel, QLabel#tagStatus {
     font-size: 12px;
     padding: 3px;
 }
-QTreeView {
+QTreeView, QTreeWidget {
     background: #ffffff;
     border: 1px solid #d5dae3;
     border-radius: 7px;
     padding: 4px;
 }
-QTreeView::item {
+QTreeView::item, QTreeWidget::item {
     min-height: 25px;
 }
-QTreeView::item:selected {
+QTreeView::item:selected, QTreeWidget::item:selected {
     background: #dce8ff;
     color: #173f85;
 }
