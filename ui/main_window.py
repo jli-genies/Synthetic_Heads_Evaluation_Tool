@@ -164,13 +164,15 @@ class MainWindow(QMainWindow):
         }
         tag_path = self._tag_path(self.current_asset)
         try:
+            tag_path.parent.mkdir(parents=True, exist_ok=True)
             tag_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
         except OSError as error:
             QMessageBox.critical(self, "Unable to save tags", str(error))
             return
 
-        self.tag_panel.status_label.setText(f"Saved: {tag_path.name}")
-        self.status_bar.showMessage(f"Tags saved to {tag_path.name}", 5000)
+        relative = tag_path.relative_to(self.project_root)
+        self.tag_panel.status_label.setText(f"Saved: {relative}")
+        self.status_bar.showMessage(f"Tags saved to {relative}", 5000)
 
     def download_asset(self) -> None:
         if not self.current_asset:
@@ -190,12 +192,16 @@ class MainWindow(QMainWindow):
             return
         self.status_bar.showMessage(f"Copied asset to {destination}", 5000)
 
-    @staticmethod
-    def _tag_path(asset_path: Path) -> Path:
-        return asset_path.with_name(f"{asset_path.name}.tags.json")
+    def _tag_path(self, asset_path: Path) -> Path:
+        """Centralized cache: ``tags/<asset_filename>.tags.json``."""
+        return self.project_root / "tags" / f"{asset_path.name}.tags.json"
 
     def _load_tags(self, asset_path: Path) -> dict:
         tag_path = self._tag_path(asset_path)
+        # Fall back to legacy sidecar next to the asset, if present.
+        legacy_path = asset_path.with_name(f"{asset_path.name}.tags.json")
+        if not tag_path.exists() and legacy_path.is_file():
+            tag_path = legacy_path
         if not tag_path.exists():
             return {}
         try:
