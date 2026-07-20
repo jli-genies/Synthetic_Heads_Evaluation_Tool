@@ -23,6 +23,8 @@ ASSET_EXTENSIONS = {".glb", ".fbx"}
 PATH_ROLE = Qt.ItemDataRole.UserRole
 RENDERED_ROLE = Qt.ItemDataRole.UserRole + 1
 
+# Use only for testing purposes.
+DEFAULT_ASSET_ROOT = "C:/Users/auror/Documents/Gen3d_testing"
 
 def find_blender_executable() -> Path | None:
     """Locate a Blender binary (PATH first, then common Windows installs)."""
@@ -133,7 +135,10 @@ class AssetTree(QWidget):
         return Path(path) if path else None
 
     def choose_root_folder(self) -> None:
-        start = str(self.root_path or self.project_root)
+        if DEFAULT_ASSET_ROOT:
+            start = DEFAULT_ASSET_ROOT
+        else:
+            start = str(self.root_path or self.project_root)
         selected = QFileDialog.getExistingDirectory(self, "Choose asset root folder", start)
         if selected:
             self.set_root_folder(Path(selected))

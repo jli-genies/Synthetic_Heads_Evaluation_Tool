@@ -174,6 +174,17 @@ class MainWindow(QMainWindow):
         self.tag_panel.status_label.setText(f"Saved: {relative}")
         self.status_bar.showMessage(f"Tags saved to {relative}", 5000)
 
+    # TODO: After confirming Segmentation run, replace download button w/ segmentation button.
+    # TODO: After generating segmentation, use output to fill out tag panel.
+
+    def run_segmentation(self) -> None:
+        if not self.current_asset:
+            return
+        # TODO: Run segmentation on the current asset.
+        # TODO: Use output to fill out tag panel.
+        self.tag_panel.set_tags(self._load_tags(self.current_asset))
+        self.status_bar.showMessage(f"Segmentation run on {self.current_asset.name}", 5000)
+
     def download_asset(self) -> None:
         if not self.current_asset:
             return
