@@ -1,0 +1,27 @@
+{
+  "mode": "http_local",
+  "endpoint_url": "http://127.0.0.1:8080/invocations",
+  "host_renders_root": "",
+  "container_renders_root": "/data/renders",
+  "timeout_s": 600,
+  "categories": [
+    "Hair",
+    "Core_Face",
+    "Left Eyebrow",
+    "Right Eyebrow",
+    "Left Eye",
+    "Right Eye",
+    "Left Pupil",
+    "Right Pupil",
+    "Upper Lip",
+    "Lower Lip",
+    "Beard",
+    "Left Ear",
+    "Right Ear"
+  ],
+  "geniesam_root": "C:/Users/auror/Documents/Github/GenieSAM",
+  "python_exe": "",
+  "checkpoint": "C:/Users/auror/Documents/segmentation/sam3.pth",
+  "device": "cuda",
+  "image_size": 1008
+}

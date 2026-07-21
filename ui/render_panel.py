@@ -121,7 +121,7 @@ class RenderPanel(QWidget):
 
     previous_requested = pyqtSignal()
     next_requested = pyqtSignal()
-    download_requested = pyqtSignal()
+    segment_requested = pyqtSignal()
 
     def __init__(
         self,
@@ -165,10 +165,10 @@ class RenderPanel(QWidget):
         tiles_scroll.setWidget(tiles_host)
         tiles_scroll.setMinimumHeight(PREVIEW_SIZE // 2)
 
-        self.download_button = QPushButton("Download selected asset")
-        self.download_button.setObjectName("primaryButton")
-        self.download_button.setEnabled(False)
-        self.download_button.clicked.connect(self.download_requested)
+        self.segment_button = QPushButton("Segment / Suggest tags")
+        self.segment_button.setObjectName("primaryButton")
+        self.segment_button.setEnabled(False)
+        self.segment_button.clicked.connect(self.segment_requested)
 
         self.previous_button = QPushButton("←  Back")
         self.next_button = QPushButton("Forward  →")
@@ -187,7 +187,7 @@ class RenderPanel(QWidget):
         layout.addWidget(title)
         layout.addWidget(self.asset_name)
         layout.addWidget(tiles_scroll, 1)
-        layout.addWidget(self.download_button)
+        layout.addWidget(self.segment_button)
         layout.addLayout(navigation)
 
     @property
@@ -196,7 +196,7 @@ class RenderPanel(QWidget):
 
     def set_asset(self, asset_path: str | Path | None) -> None:
         self._asset_path = Path(asset_path) if asset_path else None
-        self.download_button.setEnabled(bool(self._asset_path and self._asset_path.is_file()))
+        self.segment_button.setEnabled(bool(self._asset_path and self._asset_path.is_file()))
         # #region agent log
         _agent_log(
             "A",
@@ -249,6 +249,10 @@ class RenderPanel(QWidget):
             )
             # #endregion
             tile.set_image(match, f"{view_name}\nNo render found")
+
+    def set_segment_enabled(self, enabled: bool) -> None:
+        has_asset = bool(self._asset_path and self._asset_path.is_file())
+        self.segment_button.setEnabled(bool(enabled) and has_asset)
 
     def set_navigation_enabled(self, has_previous: bool, has_next: bool) -> None:
         self.previous_button.setEnabled(has_previous)

@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "notes": "Maps geometric features to tag_schema fields via heuristic ids. Tune thresholds without code changes.",
+  "mappings": [
+    {
+      "heuristic": "head_size_from_aspect",
+      "category": "head_shape",
+      "field": "size",
+      "thresholds": { "thin_max": 0.72, "wide_min": 0.92 }
+    },
+    {
+      "heuristic": "head_length_from_aspect",
+      "category": "head_shape",
+      "field": "length",
+      "thresholds": { "long_max": 0.72, "short_min": 0.92 }
+    },
+    {
+      "heuristic": "eyes_size_from_area",
+      "category": "eyes_shape",
+      "field": "size",
+      "thresholds": { "small_max": 0.012, "large_min": 0.028 }
+    },
+    {
+      "heuristic": "eyes_height_placement",
+      "category": "eyes_shape",
+      "field": "height",
+      "thresholds": { "high_max": 0.38, "low_min": 0.52 }
+    },
+    {
+      "heuristic": "eyes_width_placement",
+      "category": "eyes_shape",
+      "field": "width",
+      "thresholds": { "close_max": 0.28, "wide_min": 0.40 }
+    },
+    {
+      "heuristic": "lips_proportion_from_hw",
+      "category": "lips_shape",
+      "field": "proportion",
+      "thresholds": { "small_max": 0.28, "large_min": 0.45 }
+    },
+    {
+      "heuristic": "mouth_proportion_from_width",
+      "category": "mouth_shape",
+      "field": "proportion",
+      "thresholds": { "narrow_max": 0.32, "wide_min": 0.48 }
+    },
+    {
+      "heuristic": "brow_proportion_from_aspect",
+      "category": "brow_shape",
+      "field": "proportion",
+      "thresholds": { "shallow_min": 6.0, "heavy_max": 3.5 }
+    }
+  ]
+}
