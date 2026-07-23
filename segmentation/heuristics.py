@@ -6,7 +6,7 @@ from typing import Any, Callable
 
 from .features import FeatureSet
 
-HeuristicFn = Callable[[FeatureSet, dict[str, Any]], str | None]
+HeuristicFn = Callable[[FeatureSet, dict[str, Any]], str | list[str] | None]
 
 
 def _ternary(
@@ -126,6 +126,77 @@ def lips_proportion_from_hw(features: FeatureSet, params: dict[str, Any]) -> str
     return None
 
 
+def lips_proportion_from_upper_lower(
+    features: FeatureSet, params: dict[str, Any]
+) -> str | None:
+    """Lip size from Upper+Lower Lip heights vs face height; mid band blank."""
+    face = features.regions.get("Core_Face") or features.regions.get("Face")
+    upper = features.regions.get("Upper Lip")
+    lower = features.regions.get("Lower Lip")
+    if not face or (not upper and not lower):
+        return None
+    lip_h = (upper.height if upper else 0.0) + (lower.height if lower else 0.0)
+    value = lip_h / face.height if face.height > 1e-6 else 0.0
+    thr = params.get("thresholds") or {}
+    small_max = float(thr.get("small_max", 0.045))
+    large_min = float(thr.get("large_min", 0.090))
+    if value <= small_max:
+        return "small"
+    if value >= large_min:
+        return "large"
+    return None
+
+
+def lips_shape_from_upper_lower(
+    features: FeatureSet, params: dict[str, Any]
+) -> list[str] | None:
+    """Infer lips_shape.shape from separate Upper/Lower Lip boxes.
+
+    Priority: top/bottom-heavy balance, then flat/thin/full from combined
+    thickness. Mid / ambiguous cases return None so the user decides.
+    """
+    face = features.regions.get("Core_Face") or features.regions.get("Face")
+    upper = features.regions.get("Upper Lip")
+    lower = features.regions.get("Lower Lip")
+    if not upper or not lower or not face:
+        return None
+
+    thr = params.get("thresholds") or {}
+    top_heavy_min = float(thr.get("top_heavy_min", 1.2))
+    bottom_heavy_min = float(thr.get("bottom_heavy_min", 1.2))
+    thin_max = float(thr.get("thin_max", 0.045))
+    full_min = float(thr.get("full_min", 0.075))
+    flat_max_hw = float(thr.get("flat_max_hw", 0.25))
+
+    uh = upper.height
+    lh = lower.height
+    if uh <= 1e-6 or lh <= 1e-6:
+        return None
+
+    # Balance: compare vertical extent of each lip box.
+    if uh / lh >= top_heavy_min:
+        return ["top-heavy"]
+    if lh / uh >= bottom_heavy_min:
+        return ["bottom-heavy"]
+
+    # Thickness: combined lip height vs face, plus union aspect for flat.
+    rel = (uh + lh) / face.height if face.height > 1e-6 else 0.0
+    lips = features.aggregates.get("lips") or {}
+    union_hw = float(lips.get("height_over_width", 0.0))
+    if union_hw <= 0.0:
+        union_w = max(upper.width, lower.width)
+        union_h = (max(upper.bbox[3], lower.bbox[3]) - min(upper.bbox[1], lower.bbox[1]))
+        union_hw = union_h / union_w if union_w > 1e-6 else 0.0
+
+    if union_hw <= flat_max_hw and rel <= thin_max:
+        return ["flat"]
+    if rel <= thin_max:
+        return ["thin"]
+    if rel >= full_min:
+        return ["full"]
+    return None
+
+
 def mouth_proportion_from_width(features: FeatureSet, params: dict[str, Any]) -> str | None:
     face = features.regions.get("Core_Face") or features.regions.get("Face")
     lips = features.aggregates.get("lips")
@@ -165,12 +236,16 @@ HEURISTICS: dict[str, HeuristicFn] = {
     "eyes_height_placement": eyes_height_placement,
     "eyes_width_placement": eyes_width_placement,
     "lips_proportion_from_hw": lips_proportion_from_hw,
+    "lips_proportion_from_upper_lower": lips_proportion_from_upper_lower,
+    "lips_shape_from_upper_lower": lips_shape_from_upper_lower,
     "mouth_proportion_from_width": mouth_proportion_from_width,
     "brow_proportion_from_aspect": brow_proportion_from_aspect,
 }
 
 
-def run_heuristic(name: str, features: FeatureSet, params: dict[str, Any]) -> str | None:
+def run_heuristic(
+    name: str, features: FeatureSet, params: dict[str, Any]
+) -> str | list[str] | None:
     fn = HEURISTICS.get(name)
     if not fn:
         return None
