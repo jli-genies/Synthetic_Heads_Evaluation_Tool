@@ -17,8 +17,32 @@ from PyQt6.QtWidgets import (
     QListView,
     QPushButton,
     QScrollArea,
+    QTabWidget,
     QVBoxLayout,
     QWidget,
+)
+
+# HeadGen chaos_joints.json bind markers used for per-feature quality ratings.
+CHAOS_JOINT_MARKERS: tuple[str, ...] = (
+    "FaceBind",
+    "JawBind",
+    "LeftBrowBind",
+    "RightBrowBind",
+    "LeftCheekBind",
+    "RightCheekBind",
+    "LeftCheekBoneBind",
+    "RightCheekBoneBind",
+    "LeftEyeSocketBind",
+    "RightEyeSocketBind",
+    "MouthBind",
+    "MouthInnerBind",
+    "NoseBind",
+)
+
+JOINT_FEATURE_OPTIONS: tuple[tuple[str, str], ...] = (
+    ("Not specified", ""),
+    ("Good", "good"),
+    ("Bad", "bad"),
 )
 
 
@@ -111,6 +135,7 @@ class TagPanel(QWidget):
         self.schema_path = Path(schema_path)
         self.schema = self._load_schema()
         self.controls: dict[tuple[str, str], QComboBox] = {}
+        self.joint_controls: dict[str, QComboBox] = {}
         self.setMinimumWidth(300)
 
         title = QLabel("Tag Attributes")
@@ -121,6 +146,23 @@ class TagPanel(QWidget):
         self.status_label.setObjectName("tagStatus")
         self.status_label.setWordWrap(True)
 
+        self.tabs = QTabWidget()
+        self.tabs.addTab(self._build_attributes_tab(), "Attributes")
+        self.tabs.addTab(self._build_joint_features_tab(), "Joint Features")
+
+        self.submit_button = QPushButton("Submit / update attributes")
+        self.submit_button.setObjectName("primaryButton")
+        self.submit_button.setEnabled(False)
+        self.submit_button.clicked.connect(lambda: self.submit_requested.emit(self.tags()))
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(16, 12, 16, 12)
+        layout.addWidget(title)
+        layout.addWidget(self.status_label)
+        layout.addWidget(self.tabs, 1)
+        layout.addWidget(self.submit_button)
+
+    def _build_attributes_tab(self) -> QWidget:
         fields_widget = QWidget()
         fields_layout = QVBoxLayout(fields_widget)
         fields_layout.setContentsMargins(4, 4, 4, 4)
@@ -132,18 +174,45 @@ class TagPanel(QWidget):
         scroll.setWidgetResizable(True)
         scroll.setFrameShape(QScrollArea.Shape.NoFrame)
         scroll.setWidget(fields_widget)
+        return scroll
 
-        self.submit_button = QPushButton("Submit / update attributes")
-        self.submit_button.setObjectName("primaryButton")
-        self.submit_button.setEnabled(False)
-        self.submit_button.clicked.connect(lambda: self.submit_requested.emit(self.tags()))
+    def _build_joint_features_tab(self) -> QWidget:
+        """Good/bad ratings for each HeadGen chaos joint feature."""
+        content = QWidget()
+        content_layout = QVBoxLayout(content)
+        content_layout.setContentsMargins(4, 4, 4, 4)
+        content_layout.setSpacing(10)
 
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(16, 12, 16, 12)
-        layout.addWidget(title)
-        layout.addWidget(self.status_label)
-        layout.addWidget(scroll, 1)
-        layout.addWidget(self.submit_button)
+        hint = QLabel(
+            "Rate each chaos joint feature as good or bad relative to the "
+            "authored ground-truth head."
+        )
+        hint.setObjectName("tagStatus")
+        hint.setWordWrap(True)
+        content_layout.addWidget(hint)
+
+        group = QGroupBox("Chaos joint markers")
+        form = QFormLayout(group)
+        form.setFieldGrowthPolicy(QFormLayout.FieldGrowthPolicy.AllNonFixedFieldsGrow)
+        form.setHorizontalSpacing(12)
+        form.setVerticalSpacing(8)
+
+        for marker in CHAOS_JOINT_MARKERS:
+            control = QComboBox()
+            for label, value in JOINT_FEATURE_OPTIONS:
+                control.addItem(label, value)
+            control.setMinimumWidth(190)
+            self.joint_controls[marker] = control
+            form.addRow(marker, control)
+
+        content_layout.addWidget(group)
+        content_layout.addStretch()
+
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setFrameShape(QScrollArea.Shape.NoFrame)
+        scroll.setWidget(content)
+        return scroll
 
     def set_asset(self, asset_name: str | None) -> None:
         self.submit_button.setEnabled(bool(asset_name))
@@ -172,8 +241,28 @@ class TagPanel(QWidget):
                 index = control.findData(value)
                 control.setCurrentIndex(max(0, index))
 
+    def joint_features(self) -> dict[str, str]:
+        """Return good/bad ratings keyed by chaos joint marker (omit unset)."""
+        values: dict[str, str] = {}
+        for marker, control in self.joint_controls.items():
+            value = control.currentData() or ""
+            if value:
+                values[marker] = value
+        return values
+
+    def set_joint_features(self, features: dict[str, Any] | None) -> None:
+        """Populate joint feature ratings. Missing markers reset to unset."""
+        features = features or {}
+        for marker, control in self.joint_controls.items():
+            value = features.get(marker, "")
+            if not isinstance(value, str):
+                value = ""
+            index = control.findData(value)
+            control.setCurrentIndex(max(0, index))
+
     def clear(self) -> None:
         self.set_tags({})
+        self.set_joint_features(None)
 
     def _load_schema(self) -> dict[str, Any]:
         try:

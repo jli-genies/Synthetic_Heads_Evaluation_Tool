@@ -169,7 +169,9 @@ class MainWindow(QMainWindow):
         self.tag_panel.set_asset(self.current_asset.name if self.current_asset else None)
 
         if self.current_asset:
-            self.tag_panel.set_tags(self._load_tags(self.current_asset))
+            payload = self._load_tag_payload(self.current_asset)
+            self.tag_panel.set_tags(payload.get("tags", {}))
+            self.tag_panel.set_joint_features(payload.get("joint_features", {}))
             self.status_bar.showMessage(f"Selected {self.current_asset.name}")
         else:
             self.tag_panel.clear()
@@ -211,6 +213,7 @@ class MainWindow(QMainWindow):
             "schema_version": self.tag_panel.schema.get("schema_version"),
             "asset": self.current_asset.name,
             "tags": tags,
+            "joint_features": self.tag_panel.joint_features(),
         }
         tag_path = self._tag_path(self.current_asset)
         try:
@@ -493,7 +496,7 @@ class MainWindow(QMainWindow):
         """Centralized cache: ``tags/<asset_filename>.tags.json``."""
         return self.project_root / "tags" / f"{asset_path.name}.tags.json"
 
-    def _load_tags(self, asset_path: Path) -> dict:
+    def _load_tag_payload(self, asset_path: Path) -> dict:
         tag_path = self._tag_path(asset_path)
         legacy_path = asset_path.with_name(f"{asset_path.name}.tags.json")
         if not tag_path.exists() and legacy_path.is_file():
@@ -502,10 +505,13 @@ class MainWindow(QMainWindow):
             return {}
         try:
             payload = json.loads(tag_path.read_text(encoding="utf-8"))
-            return payload.get("tags", {})
+            return payload if isinstance(payload, dict) else {}
         except (OSError, json.JSONDecodeError) as error:
             self.status_bar.showMessage(f"Could not read {tag_path.name}: {error}", 7000)
             return {}
+
+    def _load_tags(self, asset_path: Path) -> dict:
+        return self._load_tag_payload(asset_path).get("tags", {})
 
 
 STYLE_SHEET = """
@@ -533,6 +539,30 @@ QLabel#rootLabel, QLabel#tagStatus {
     color: #667085;
     font-size: 12px;
     padding: 3px;
+}
+QTabWidget::pane {
+    background: transparent;
+    border: none;
+    top: -1px;
+}
+QTabBar::tab {
+    background: #e8ecf2;
+    border: 1px solid #d5dae3;
+    border-bottom: none;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    min-width: 100px;
+    padding: 7px 14px;
+    margin-right: 3px;
+    color: #556176;
+}
+QTabBar::tab:selected {
+    background: #ffffff;
+    color: #162033;
+    font-weight: 600;
+}
+QTabBar::tab:hover:!selected {
+    background: #edf3ff;
 }
 QTreeView, QTreeWidget {
     background: #ffffff;
