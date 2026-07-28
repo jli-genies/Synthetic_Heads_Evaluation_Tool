@@ -1,0 +1,309 @@
+{
+  "source_folder": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2",
+  "requested_count": 50,
+  "available_count": 604,
+  "selected_count": 50,
+  "seed": null,
+  "assets": [
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_female_loPoly_0004_grp.fbx",
+      "name": "african_female_loPoly_0004_grp.fbx",
+      "stem": "african_female_loPoly_0004_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_female_loPoly_0029_grp.fbx",
+      "name": "african_female_loPoly_0029_grp.fbx",
+      "stem": "african_female_loPoly_0029_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_female_loPoly_0042_grp.fbx",
+      "name": "african_female_loPoly_0042_grp.fbx",
+      "stem": "african_female_loPoly_0042_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_female_loPoly_0045_grp.fbx",
+      "name": "african_female_loPoly_0045_grp.fbx",
+      "stem": "african_female_loPoly_0045_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_female_loPoly_0060_grp.fbx",
+      "name": "african_female_loPoly_0060_grp.fbx",
+      "stem": "african_female_loPoly_0060_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_male_loPoly_0010_grp.fbx",
+      "name": "african_male_loPoly_0010_grp.fbx",
+      "stem": "african_male_loPoly_0010_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_male_loPoly_0037_grp.fbx",
+      "name": "african_male_loPoly_0037_grp.fbx",
+      "stem": "african_male_loPoly_0037_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_male_loPoly_0040_grp.fbx",
+      "name": "african_male_loPoly_0040_grp.fbx",
+      "stem": "african_male_loPoly_0040_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_male_loPoly_0041_grp.fbx",
+      "name": "african_male_loPoly_0041_grp.fbx",
+      "stem": "african_male_loPoly_0041_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\african\\african_male_loPoly_0045_grp.fbx",
+      "name": "african_male_loPoly_0045_grp.fbx",
+      "stem": "african_male_loPoly_0045_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_female_loPoly_0014_grp.fbx",
+      "name": "asian_female_loPoly_0014_grp.fbx",
+      "stem": "asian_female_loPoly_0014_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_female_loPoly_0020_grp.fbx",
+      "name": "asian_female_loPoly_0020_grp.fbx",
+      "stem": "asian_female_loPoly_0020_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_female_loPoly_0025_grp.fbx",
+      "name": "asian_female_loPoly_0025_grp.fbx",
+      "stem": "asian_female_loPoly_0025_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_male_loPoly_0006_grp.fbx",
+      "name": "asian_male_loPoly_0006_grp.fbx",
+      "stem": "asian_male_loPoly_0006_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_male_loPoly_0015_grp.fbx",
+      "name": "asian_male_loPoly_0015_grp.fbx",
+      "stem": "asian_male_loPoly_0015_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_male_loPoly_0021_grp.fbx",
+      "name": "asian_male_loPoly_0021_grp.fbx",
+      "stem": "asian_male_loPoly_0021_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_male_loPoly_0022_grp.fbx",
+      "name": "asian_male_loPoly_0022_grp.fbx",
+      "stem": "asian_male_loPoly_0022_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_male_loPoly_0043_grp.fbx",
+      "name": "asian_male_loPoly_0043_grp.fbx",
+      "stem": "asian_male_loPoly_0043_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_male_loPoly_0044_grp.fbx",
+      "name": "asian_male_loPoly_0044_grp.fbx",
+      "stem": "asian_male_loPoly_0044_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_male_loPoly_0052_grp.fbx",
+      "name": "asian_male_loPoly_0052_grp.fbx",
+      "stem": "asian_male_loPoly_0052_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_male_loPoly_0054_grp.fbx",
+      "name": "asian_male_loPoly_0054_grp.fbx",
+      "stem": "asian_male_loPoly_0054_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\asian\\asian_male_loPoly_0062_grp.fbx",
+      "name": "asian_male_loPoly_0062_grp.fbx",
+      "stem": "asian_male_loPoly_0062_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\caucasian\\caucasian_female_loPoly_0030_grp.fbx",
+      "name": "caucasian_female_loPoly_0030_grp.fbx",
+      "stem": "caucasian_female_loPoly_0030_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\caucasian\\caucasian_male_loPoly_0003_grp.fbx",
+      "name": "caucasian_male_loPoly_0003_grp.fbx",
+      "stem": "caucasian_male_loPoly_0003_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\caucasian\\caucasian_male_loPoly_0004_grp.fbx",
+      "name": "caucasian_male_loPoly_0004_grp.fbx",
+      "stem": "caucasian_male_loPoly_0004_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\caucasian\\caucasian_male_loPoly_0008_grp.fbx",
+      "name": "caucasian_male_loPoly_0008_grp.fbx",
+      "stem": "caucasian_male_loPoly_0008_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\caucasian\\caucasian_male_loPoly_0012_grp.fbx",
+      "name": "caucasian_male_loPoly_0012_grp.fbx",
+      "stem": "caucasian_male_loPoly_0012_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\caucasian\\caucasian_male_loPoly_0029_grp.fbx",
+      "name": "caucasian_male_loPoly_0029_grp.fbx",
+      "stem": "caucasian_male_loPoly_0029_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_female_loPoly_0001_grp.fbx",
+      "name": "latino_female_loPoly_0001_grp.fbx",
+      "stem": "latino_female_loPoly_0001_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_female_loPoly_0021_grp.fbx",
+      "name": "latino_female_loPoly_0021_grp.fbx",
+      "stem": "latino_female_loPoly_0021_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_female_loPoly_0039_grp.fbx",
+      "name": "latino_female_loPoly_0039_grp.fbx",
+      "stem": "latino_female_loPoly_0039_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_female_loPoly_0044_grp.fbx",
+      "name": "latino_female_loPoly_0044_grp.fbx",
+      "stem": "latino_female_loPoly_0044_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_female_loPoly_0049_grp.fbx",
+      "name": "latino_female_loPoly_0049_grp.fbx",
+      "stem": "latino_female_loPoly_0049_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_male_loPoly_0005_grp.fbx",
+      "name": "latino_male_loPoly_0005_grp.fbx",
+      "stem": "latino_male_loPoly_0005_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_male_loPoly_0017_grp.fbx",
+      "name": "latino_male_loPoly_0017_grp.fbx",
+      "stem": "latino_male_loPoly_0017_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_male_loPoly_0038_grp.fbx",
+      "name": "latino_male_loPoly_0038_grp.fbx",
+      "stem": "latino_male_loPoly_0038_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_male_loPoly_0049_grp.fbx",
+      "name": "latino_male_loPoly_0049_grp.fbx",
+      "stem": "latino_male_loPoly_0049_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_male_loPoly_0050_grp.fbx",
+      "name": "latino_male_loPoly_0050_grp.fbx",
+      "stem": "latino_male_loPoly_0050_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_male_loPoly_0061_grp.fbx",
+      "name": "latino_male_loPoly_0061_grp.fbx",
+      "stem": "latino_male_loPoly_0061_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\latino\\latino_male_loPoly_0064_grp.fbx",
+      "name": "latino_male_loPoly_0064_grp.fbx",
+      "stem": "latino_male_loPoly_0064_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_female_loPoly_0007_grp.fbx",
+      "name": "middleEast_female_loPoly_0007_grp.fbx",
+      "stem": "middleEast_female_loPoly_0007_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_female_loPoly_0024_grp.fbx",
+      "name": "middleEast_female_loPoly_0024_grp.fbx",
+      "stem": "middleEast_female_loPoly_0024_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_female_loPoly_0038_grp.fbx",
+      "name": "middleEast_female_loPoly_0038_grp.fbx",
+      "stem": "middleEast_female_loPoly_0038_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_female_loPoly_0040_grp.fbx",
+      "name": "middleEast_female_loPoly_0040_grp.fbx",
+      "stem": "middleEast_female_loPoly_0040_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_male_loPoly_0009_grp.fbx",
+      "name": "middleEast_male_loPoly_0009_grp.fbx",
+      "stem": "middleEast_male_loPoly_0009_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_male_loPoly_0012_grp.fbx",
+      "name": "middleEast_male_loPoly_0012_grp.fbx",
+      "stem": "middleEast_male_loPoly_0012_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_male_loPoly_0025_grp.fbx",
+      "name": "middleEast_male_loPoly_0025_grp.fbx",
+      "stem": "middleEast_male_loPoly_0025_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_male_loPoly_0033_grp.fbx",
+      "name": "middleEast_male_loPoly_0033_grp.fbx",
+      "stem": "middleEast_male_loPoly_0033_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_male_loPoly_0058_grp.fbx",
+      "name": "middleEast_male_loPoly_0058_grp.fbx",
+      "stem": "middleEast_male_loPoly_0058_grp",
+      "extension": ".fbx"
+    },
+    {
+      "path": "C:\\Users\\auror\\Documents\\Gen3d_testing\\authored_heads_var_v2\\middleEast\\middleEast_male_loPoly_0061_grp.fbx",
+      "name": "middleEast_male_loPoly_0061_grp.fbx",
+      "stem": "middleEast_male_loPoly_0061_grp",
+      "extension": ".fbx"
+    }
+  ]
+}
