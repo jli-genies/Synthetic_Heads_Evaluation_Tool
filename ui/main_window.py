@@ -21,10 +21,12 @@ from PyQt6.QtWidgets import (
 try:
     from .asset_tree import AssetTree
     from .render_panel import RenderPanel
+    from .sort_assets import sort_asset_by_joint_features
     from .tag_panel import TagPanel
 except ImportError:  # Allow running this file directly.
     from asset_tree import AssetTree
     from render_panel import RenderPanel
+    from sort_assets import sort_asset_by_joint_features
     from tag_panel import TagPanel
 
 # Association layer lives at project root (sibling of ui/).
@@ -208,6 +210,7 @@ class MainWindow(QMainWindow):
         if not self.current_asset:
             return
 
+        joint_features = self.tag_panel.joint_features()
         tag_path = self._tag_path(self.current_asset)
         joint_path = self._joint_eval_path(self.current_asset)
         tags_payload = {
@@ -217,7 +220,7 @@ class MainWindow(QMainWindow):
         }
         joint_payload = {
             "asset": self.current_asset.name,
-            "joint_features": self.tag_panel.joint_features(),
+            "joint_features": joint_features,
         }
         try:
             tag_path.parent.mkdir(parents=True, exist_ok=True)
@@ -226,6 +229,11 @@ class MainWindow(QMainWindow):
                 json.dumps(joint_payload, indent=2) + "\n", encoding="utf-8"
             )
             self._ensure_asset_copy_in_tag_dir(self.current_asset)
+            bucket = sort_asset_by_joint_features(
+                self.project_root,
+                self.current_asset.name,
+                joint_features,
+            )
         except OSError as error:
             QMessageBox.critical(self, "Unable to save tags", str(error))
             return
@@ -234,7 +242,8 @@ class MainWindow(QMainWindow):
         joint_display = self._display_path(joint_path)
         self.tag_panel.status_label.setText(f"Saved: {tag_display}")
         self.status_bar.showMessage(
-            f"Saved attributes → {tag_display}; joints → {joint_display}",
+            f"Saved attributes → {tag_display}; joints → {joint_display} "
+            f"(sorted to lists/{bucket}.json)",
             5000,
         )
 
