@@ -4,4 +4,5 @@ __pycache__/
 renders/
 *.log
 tags/
+joint_features/
 segmentation_output/

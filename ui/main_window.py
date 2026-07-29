@@ -169,9 +169,8 @@ class MainWindow(QMainWindow):
         self.tag_panel.set_asset(self.current_asset.name if self.current_asset else None)
 
         if self.current_asset:
-            payload = self._load_tag_payload(self.current_asset)
-            self.tag_panel.set_tags(payload.get("tags", {}))
-            self.tag_panel.set_joint_features(payload.get("joint_features", {}))
+            self.tag_panel.set_tags(self._load_tags(self.current_asset))
+            self.tag_panel.set_joint_features(self._load_joint_features(self.current_asset))
             self.status_bar.showMessage(f"Selected {self.current_asset.name}")
         else:
             self.tag_panel.clear()
@@ -209,23 +208,35 @@ class MainWindow(QMainWindow):
         if not self.current_asset:
             return
 
-        payload = {
+        tag_path = self._tag_path(self.current_asset)
+        joint_path = self._joint_eval_path(self.current_asset)
+        tags_payload = {
             "schema_version": self.tag_panel.schema.get("schema_version"),
             "asset": self.current_asset.name,
             "tags": tags,
+        }
+        joint_payload = {
+            "asset": self.current_asset.name,
             "joint_features": self.tag_panel.joint_features(),
         }
-        tag_path = self._tag_path(self.current_asset)
         try:
             tag_path.parent.mkdir(parents=True, exist_ok=True)
-            tag_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+            tag_path.write_text(json.dumps(tags_payload, indent=2) + "\n", encoding="utf-8")
+            joint_path.write_text(
+                json.dumps(joint_payload, indent=2) + "\n", encoding="utf-8"
+            )
+            self._ensure_asset_copy_in_tag_dir(self.current_asset)
         except OSError as error:
             QMessageBox.critical(self, "Unable to save tags", str(error))
             return
 
-        relative = tag_path.relative_to(self.project_root)
-        self.tag_panel.status_label.setText(f"Saved: {relative}")
-        self.status_bar.showMessage(f"Tags saved to {relative}", 5000)
+        tag_display = self._display_path(tag_path)
+        joint_display = self._display_path(joint_path)
+        self.tag_panel.status_label.setText(f"Saved: {tag_display}")
+        self.status_bar.showMessage(
+            f"Saved attributes → {tag_display}; joints → {joint_display}",
+            5000,
+        )
 
     def run_segmentation(self) -> None:
         if not self.current_asset:
@@ -492,27 +503,88 @@ class MainWindow(QMainWindow):
             return
         self.status_bar.showMessage(f"Copied asset to {destination}", 5000)
 
-    def _tag_path(self, asset_path: Path) -> Path:
-        """Centralized cache: ``tags/<asset_filename>.tags.json``."""
-        return self.project_root / "tags" / f"{asset_path.name}.tags.json"
+    def _tag_dir(self, asset_path: Path) -> Path:
+        """Per-asset folder beside the mesh: ``<asset_dir>/<stem>/``."""
+        return asset_path.parent / asset_path.stem
 
-    def _load_tag_payload(self, asset_path: Path) -> dict:
-        tag_path = self._tag_path(asset_path)
-        legacy_path = asset_path.with_name(f"{asset_path.name}.tags.json")
-        if not tag_path.exists() and legacy_path.is_file():
-            tag_path = legacy_path
-        if not tag_path.exists():
-            return {}
+    def _tag_path(self, asset_path: Path) -> Path:
+        """Attribute tags: ``<asset_dir>/<stem>/<stem>_tags.json``."""
+        stem = asset_path.stem
+        return self._tag_dir(asset_path) / f"{stem}_tags.json"
+
+    def _joint_eval_path(self, asset_path: Path) -> Path:
+        """Joint feature tags: ``<asset_dir>/<stem>/<stem>_joint_eval.json``."""
+        stem = asset_path.stem
+        return self._tag_dir(asset_path) / f"{stem}_joint_eval.json"
+
+    def _ensure_asset_copy_in_tag_dir(self, asset_path: Path) -> None:
+        """Copy the evaluated mesh into its tag folder if not already present.
+
+        Skips when the selected path is already inside its own tag folder, so we
+        never copy a file onto itself.
+        """
+        tag_dir = self._tag_dir(asset_path)
+        destination = tag_dir / asset_path.name
+        if asset_path.resolve() == destination.resolve():
+            return
+        if destination.is_file():
+            return
+        tag_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(asset_path, destination)
+
+    def _read_json_dict(self, path: Path) -> dict:
         try:
-            payload = json.loads(tag_path.read_text(encoding="utf-8"))
+            payload = json.loads(path.read_text(encoding="utf-8"))
             return payload if isinstance(payload, dict) else {}
         except (OSError, json.JSONDecodeError) as error:
-            self.status_bar.showMessage(f"Could not read {tag_path.name}: {error}", 7000)
+            self.status_bar.showMessage(f"Could not read {path.name}: {error}", 7000)
             return {}
 
     def _load_tags(self, asset_path: Path) -> dict:
-        return self._load_tag_payload(asset_path).get("tags", {})
+        """Load attribute tags, preferring the per-asset sidecar."""
+        primary = self._tag_path(asset_path)
+        if primary.is_file():
+            return self._read_json_dict(primary).get("tags", {})
 
+        for candidate in (
+            self.project_root / "tags" / f"{asset_path.name}.tags.json",
+            asset_path.with_name(f"{asset_path.name}.tags.json"),
+        ):
+            if candidate.is_file():
+                return self._read_json_dict(candidate).get("tags", {})
+        return {}
+
+    def _load_joint_features(self, asset_path: Path) -> dict:
+        """Load joint feature ratings, preferring the per-asset sidecar."""
+        primary = self._joint_eval_path(asset_path)
+        if primary.is_file():
+            payload = self._read_json_dict(primary)
+            features = payload.get("joint_features", payload)
+            return features if isinstance(features, dict) else {}
+
+        # Combined legacy files may still carry joint_features.
+        for candidate in (
+            self._tag_path(asset_path),
+            self.project_root / "tags" / f"{asset_path.name}.tags.json",
+            asset_path.with_name(f"{asset_path.name}.tags.json"),
+            self.project_root
+            / "joint_features"
+            / asset_path.stem
+            / f"{asset_path.stem}_joint_eval.json",
+        ):
+            if not candidate.is_file():
+                continue
+            payload = self._read_json_dict(candidate)
+            features = payload.get("joint_features")
+            if isinstance(features, dict):
+                return features
+        return {}
+
+    def _display_path(self, path: Path) -> str:
+        try:
+            return str(path.relative_to(self.project_root))
+        except ValueError:
+            return str(path)
 
 STYLE_SHEET = """
 QMainWindow, QWidget {

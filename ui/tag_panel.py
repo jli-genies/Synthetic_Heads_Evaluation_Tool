@@ -184,8 +184,8 @@ class TagPanel(QWidget):
         content_layout.setSpacing(10)
 
         hint = QLabel(
-            "Rate each chaos joint feature as good or bad relative to the "
-            "authored ground-truth head."
+            "All chaos joint features default to good. Mark only the bad ones "
+            "relative to the authored ground-truth head, then Submit."
         )
         hint.setObjectName("tagStatus")
         hint.setWordWrap(True)
@@ -201,6 +201,8 @@ class TagPanel(QWidget):
             control = QComboBox()
             for label, value in JOINT_FEATURE_OPTIONS:
                 control.addItem(label, value)
+            # Default to "good"; reviewers only change markers that are bad.
+            control.setCurrentIndex(control.findData("good"))
             control.setMinimumWidth(190)
             self.joint_controls[marker] = control
             form.addRow(marker, control)
@@ -241,28 +243,34 @@ class TagPanel(QWidget):
                 index = control.findData(value)
                 control.setCurrentIndex(max(0, index))
 
+    def default_joint_features(self) -> dict[str, str]:
+        """All chaos joint markers rated ``good``."""
+        return {marker: "good" for marker in CHAOS_JOINT_MARKERS}
+
     def joint_features(self) -> dict[str, str]:
-        """Return good/bad ratings keyed by chaos joint marker (omit unset)."""
+        """Return good/bad ratings for every chaos joint marker.
+
+        Unset controls fall back to ``good`` so exports always include a full map.
+        """
         values: dict[str, str] = {}
         for marker, control in self.joint_controls.items():
             value = control.currentData() or ""
-            if value:
-                values[marker] = value
+            values[marker] = value if value in {"good", "bad"} else "good"
         return values
 
     def set_joint_features(self, features: dict[str, Any] | None) -> None:
-        """Populate joint feature ratings. Missing markers reset to unset."""
+        """Populate joint feature ratings. Missing markers default to ``good``."""
         features = features or {}
         for marker, control in self.joint_controls.items():
-            value = features.get(marker, "")
-            if not isinstance(value, str):
-                value = ""
+            value = features.get(marker, "good")
+            if not isinstance(value, str) or value not in {"good", "bad"}:
+                value = "good"
             index = control.findData(value)
             control.setCurrentIndex(max(0, index))
 
     def clear(self) -> None:
         self.set_tags({})
-        self.set_joint_features(None)
+        self.set_joint_features(self.default_joint_features())
 
     def _load_schema(self) -> dict[str, Any]:
         try:

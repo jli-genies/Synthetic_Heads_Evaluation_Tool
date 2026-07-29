@@ -41,12 +41,21 @@ def find_blender_executable() -> Path | None:
 
 
 def collect_assets(root: Path) -> list[Path]:
-    """Return sorted .glb / .fbx files under ``root`` (recursive)."""
-    return sorted(
-        path
-        for path in root.rglob("*")
-        if path.is_file() and path.suffix.lower() in ASSET_EXTENSIONS
-    )
+    """Return sorted .glb / .fbx files under ``root`` (recursive).
+
+    Mesh copies packed into per-asset tag folders (``<stem>/<stem>.fbx`` next to
+    the original ``<stem>.fbx``) are skipped so the tree keeps showing the
+    source file in its original location.
+    """
+    assets: list[Path] = []
+    for path in root.rglob("*"):
+        if not (path.is_file() and path.suffix.lower() in ASSET_EXTENSIONS):
+            continue
+        sibling_original = path.parent.parent / path.name
+        if path.parent.name == path.stem and sibling_original.is_file():
+            continue
+        assets.append(path)
+    return sorted(assets)
 
 
 class AssetTree(QWidget):
