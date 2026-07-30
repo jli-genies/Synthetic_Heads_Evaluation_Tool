@@ -44,10 +44,13 @@ def _agent_log(hypothesis_id: str, location: str, message: str, data: dict) -> N
 
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".bmp", ".webp"}
-PREVIEW_SIZE = 512  # Fixed square display size for each render tile.
+# Sized so front + side + bottom fit in a typical middle splitter column
+# (~1000px) without forcing huge horizontal scroll.
+PREVIEW_SIZE = 300
 VIEW_NAMES = (
     ("Front view", ("front",)),
     ("Side view R", ("side_r", "right", "profile_r")),
+    ("Bottom view", ("bottom", "under", "chin")),
 )
 
 
@@ -117,7 +120,7 @@ class RenderTile(QFrame):
 
 
 class RenderPanel(QWidget):
-    """Displays front and side-right renders and emits navigation requests."""
+    """Displays front, side-right, and bottom renders and emits navigation requests."""
 
     previous_requested = pyqtSignal()
     next_requested = pyqtSignal()
@@ -154,8 +157,8 @@ class RenderPanel(QWidget):
             grid.addWidget(tile, alignment=Qt.AlignmentFlag.AlignCenter)
         grid.addStretch(1)
 
-        # Keep fixed 512px tiles without forcing side panels to collapse when
-        # the middle splitter column is narrower than both tiles.
+        # Fixed tiles with scroll if the middle splitter is narrower than
+        # front + side + bottom.
         tiles_scroll = QScrollArea()
         tiles_scroll.setWidgetResizable(True)
         tiles_scroll.setFrameShape(QScrollArea.Shape.NoFrame)
@@ -163,7 +166,7 @@ class RenderPanel(QWidget):
         tiles_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         tiles_scroll.setAlignment(Qt.AlignmentFlag.AlignCenter)
         tiles_scroll.setWidget(tiles_host)
-        tiles_scroll.setMinimumHeight(PREVIEW_SIZE // 2)
+        tiles_scroll.setMinimumHeight(PREVIEW_SIZE + 24)
 
         self.segment_button = QPushButton("Segment / Suggest tags")
         self.segment_button.setObjectName("primaryButton")

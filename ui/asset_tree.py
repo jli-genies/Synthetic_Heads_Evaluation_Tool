@@ -110,7 +110,7 @@ class AssetTree(QWidget):
         self.load_folder_button.setEnabled(False)
         self.load_folder_button.setToolTip(
             "Queue every .glb/.fbx in this folder. Assets that already have "
-            "front + side_r previews are skipped unless you choose to re-render."
+            "front + side_r + bottom previews are skipped unless you choose to re-render."
         )
         self.load_folder_button.clicked.connect(self.load_folder_assets)
 
@@ -268,7 +268,11 @@ class AssetTree(QWidget):
 
     def _has_renders(self, asset: Path) -> bool:
         cache = self.project_root / "renders" / asset.stem
-        return (cache / "front.png").is_file() and (cache / "side_r.png").is_file()
+        return (
+            (cache / "front.png").is_file()
+            and (cache / "side_r.png").is_file()
+            and (cache / "bottom.png").is_file()
+        )
 
     @staticmethod
     def _item_label(asset: Path, rendered: bool) -> str:
@@ -341,6 +345,7 @@ class AssetTree(QWidget):
             "--views",
             "front",
             "side_r",
+            "bottom",
         ]
 
         done = self._batch_total - len(self._render_queue)

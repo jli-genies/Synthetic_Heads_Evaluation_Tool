@@ -99,7 +99,7 @@ class MainWindow(QMainWindow):
         self.asset_tree.render_finished.connect(self._on_render_finished)
 
         self.render_panel = RenderPanel(project_root=self.project_root)
-        self.render_panel.setMinimumWidth(520)
+        self.render_panel.setMinimumWidth(640)
         self.render_panel.previous_requested.connect(lambda: self._navigate(-1))
         self.render_panel.next_requested.connect(lambda: self._navigate(1))
         self.render_panel.segment_requested.connect(self.run_segmentation)
@@ -115,7 +115,7 @@ class MainWindow(QMainWindow):
         self.splitter.addWidget(self.asset_tree)
         self.splitter.addWidget(self.render_panel)
         self.splitter.addWidget(self.tag_panel)
-        self.splitter.setSizes([280, 720, 400])
+        self.splitter.setSizes([260, 980, 380])
         self.splitter.setStretchFactor(0, 0)
         self.splitter.setStretchFactor(1, 1)
         self.splitter.setStretchFactor(2, 0)

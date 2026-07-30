@@ -5,7 +5,7 @@ Run with Blender (5.1+ for this .blend), not a plain Python interpreter:
     "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe" --background \\
         blender/cameraSetup.blend --python blender/render_head.py -- \\
         path/to/asset.fbx [--align center|feet|origin] [--output-dir DIR] \\
-        [--views front side_r] [--resolution 1024] [--samples 64] \\
+        [--views front side_r bottom] [--resolution 1024] [--samples 64] \\
         [--engine EEVEE|CYCLES|SCENE]
 
 The template provides a shared ``Empty`` look-at / placement pivot with cameras
@@ -16,12 +16,15 @@ Camera roles are inferred from world position around the Empty (the .blend uses
 generic names like Camera, Camera.001, ...):
 
     front, side_l, side_r, back,
-    front_left, front_right, back_left, back_right, top
+    front_left, front_right, back_left, back_right, top, bottom
 
-Primary outputs ``front.png`` and ``side_r.png`` land in the repo cache:
+``Camera.009`` is mapped to ``bottom`` by name (underside / chin view).
+
+Primary outputs land in the repo cache:
 
     <project_root>/renders/<asset_stem>/front.png
     <project_root>/renders/<asset_stem>/side_r.png
+    <project_root>/renders/<asset_stem>/bottom.png
 
 Pass ``--views`` to include more angles, or ``--output-dir`` to override the cache path.
 """
@@ -88,10 +91,15 @@ ALL_VIEWS = (
     "back_left",
     "back_right",
     "top",
+    "bottom",
 )
 
-# Default: only the two views requested for tagging previews.
-DEFAULT_VIEWS = ("front", "side_r")
+# Default: tagging preview angles (front, profile, underside).
+DEFAULT_VIEWS = ("front", "side_r", "bottom")
+
+# The underside/chin camera is taken directly by name (as authored in
+# cameraSetup.blend) rather than inferred from position.
+BOTTOM_CAMERA_NAME = "Camera.009"
 
 # Horizontal angle bins in degrees (atan2(x, -y): 0 = front/-Y, +90 = side_l/+X).
 ANGLE_VIEWS = (
@@ -137,14 +145,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--resolution",
         type=int,
-        default=1024,
-        help="Optional square resolution override (template default is kept otherwise).",
+        default=None,
+        help="Optional square resolution override. Omit to keep cameraSetup.blend settings.",
     )
     parser.add_argument(
         "--samples",
         type=int,
-        default=32,
-        help="Optional sample override (template default is kept otherwise).",
+        default=None,
+        help="Optional sample override. Omit to keep cameraSetup.blend settings.",
     )
     parser.add_argument(
         "--views",
@@ -259,7 +267,7 @@ def compute_bounds(objects: list) -> tuple[Vector, Vector]:
 
 
 def _orbit_camera_height(marker) -> float:
-    """Mean world Z of orbit cameras (excludes the top-down camera).
+    """Mean world Z of orbit cameras (excludes top/bottom cameras).
 
     cameraSetup.blend cameras keep a near-horizontal look direction, so the
     visible band is around camera Z (~1.25), not Empty Z (~0.625).
@@ -274,6 +282,8 @@ def _orbit_camera_height(marker) -> float:
     for cam in bpy.data.objects:
         if cam.type != "CAMERA":
             continue
+        if cam.name == BOTTOM_CAMERA_NAME:
+            continue
         loc = cam.matrix_world.translation
         horizontal = Vector((loc.x, loc.y, 0.0)) - marker_xy
         # Top camera sits nearly above the marker; skip it for head-height framing.
@@ -287,6 +297,13 @@ def _orbit_camera_height(marker) -> float:
 
 # Assets shorter than this (meters) are treated as cut heads for framing.
 _HEAD_HEIGHT_THRESHOLD = 0.75
+
+# For full-body assets, imported meshes whose name contains one of these tokens
+# are torso/limb geometry that would occlude the chin from the bottom camera
+# (which looks straight up through the asset's vertical centerline). They are
+# hidden for just the "bottom" render so that view isolates the head, matching
+# Genies' "<style>_body_<idx>_geo" / "<style>_head_<idx>_geo" naming.
+BODY_MESH_TOKENS = ("body",)
 
 
 def align_asset(imported_objects: list, align: str) -> None:
@@ -410,7 +427,7 @@ def _nearest_angle_view(angle_deg: float) -> str:
 
 
 def discover_cameras() -> dict[str, Any]:
-    """Map semantic view names to cameras using position around the Empty."""
+    """Map semantic view names to cameras: bottom by exact name, others by Empty-relative pose."""
     cameras = [obj for obj in bpy.data.objects if obj.type == "CAMERA"]
     if not cameras:
         raise RuntimeError("No cameras found in cameraSetup.blend.")
@@ -422,8 +439,10 @@ def discover_cameras() -> dict[str, Any]:
     for cam in cameras:
         rel = cam.matrix_world.translation - origin
         horizontal = Vector((rel.x, rel.y, 0.0))
-        # Top camera in cameraSetup.blend sits directly above the Empty.
-        if horizontal.length < 1e-4 and rel.z > 1e-4:
+        if cam.name == BOTTOM_CAMERA_NAME:
+            view = "bottom"
+        elif horizontal.length < 1e-4 and rel.z > 1e-4:
+            # Top camera in cameraSetup.blend sits directly above the Empty.
             view = "top"
         else:
             angle = math.degrees(math.atan2(rel.x, -rel.y))
@@ -447,8 +466,63 @@ def discover_cameras() -> dict[str, Any]:
     return assigned
 
 
+def normalize_camera_object_scales(cameras: dict[str, Any]) -> None:
+    """Reset non-unit camera object scales that warp ortho frustums / clipping.
+
+    Scaling a camera object (common after viewport grab/snaps) does not change
+    ``ortho_scale`` in the UI but still distorts the view matrix — often read as
+    mysterious occlusion or hollow clipped shells.
+
+    Location, rotation, and Camera data (ortho_scale, shift, clip, type) are left
+    as authored in cameraSetup.blend.
+    """
+    for view, cam in cameras.items():
+        scale = cam.matrix_world.to_scale()
+        if (
+            abs(scale.x - 1.0) < 1e-5
+            and abs(scale.y - 1.0) < 1e-5
+            and abs(scale.z - 1.0) < 1e-5
+        ):
+            continue
+        loc, rot, _ = cam.matrix_world.decompose()
+        # Bake unit scale into the world matrix while keeping parent + local intent.
+        if cam.parent is not None:
+            parent_inv = cam.parent.matrix_world.inverted()
+            local = parent_inv @ Matrix.LocRotScale(loc, rot, Vector((1.0, 1.0, 1.0)))
+            cam.location = local.to_translation()
+            cam.rotation_euler = local.to_euler(cam.rotation_mode)
+            cam.scale = (1.0, 1.0, 1.0)
+        else:
+            cam.matrix_world = Matrix.LocRotScale(loc, rot, Vector((1.0, 1.0, 1.0)))
+        print(
+            f"Normalized scale on '{cam.name}' ({view}): "
+            f"was ({scale.x:.4f}, {scale.y:.4f}, {scale.z:.4f})"
+        )
+    bpy.context.view_layer.update()
+
+
+def log_camera_settings(cameras: dict[str, Any], views: list[str]) -> None:
+    for view in views:
+        cam = cameras.get(view)
+        if cam is None:
+            continue
+        data = cam.data
+        scale = cam.matrix_world.to_scale()
+        print(
+            f"Camera '{cam.name}' ({view}): type={data.type} "
+            f"ortho_scale={getattr(data, 'ortho_scale', None)} "
+            f"shift=({data.shift_x:.4f}, {data.shift_y:.4f}) "
+            f"clip=({data.clip_start:.4f}, {data.clip_end:.1f}) "
+            f"loc={[round(v, 4) for v in cam.matrix_world.translation]} "
+            f"scale={[round(v, 4) for v in scale]} "
+            f"parent={cam.parent.name if cam.parent else None}"
+        )
+
+
 def configure_render(resolution: int | None, samples: int | None, engine: str) -> None:
+    """Apply optional CLI overrides; otherwise keep cameraSetup.blend render settings."""
     scene = bpy.context.scene
+    # Keep template image settings (RGBA/transparent/etc.); only ensure PNG stills.
     scene.render.image_settings.file_format = "PNG"
 
     if resolution is not None:
@@ -459,8 +533,6 @@ def configure_render(resolution: int | None, samples: int | None, engine: str) -
     if engine == "CYCLES":
         bpy.ops.preferences.addon_enable(module="cycles")
         scene.render.engine = "CYCLES"
-        if samples is not None:
-            scene.cycles.samples = samples
     elif engine == "EEVEE":
         engine_items = {
             item.identifier
@@ -469,16 +541,53 @@ def configure_render(resolution: int | None, samples: int | None, engine: str) -
         scene.render.engine = (
             "BLENDER_EEVEE_NEXT" if "BLENDER_EEVEE_NEXT" in engine_items else "BLENDER_EEVEE"
         )
-        if samples is not None and hasattr(scene, "eevee") and hasattr(scene.eevee, "taa_render_samples"):
-            scene.eevee.taa_render_samples = samples
-    elif samples is not None:
+    # engine == "SCENE": leave template engine (currently CYCLES in cameraSetup.blend).
+
+    if samples is not None:
         if scene.render.engine == "CYCLES":
             scene.cycles.samples = samples
         elif hasattr(scene, "eevee") and hasattr(scene.eevee, "taa_render_samples"):
             scene.eevee.taa_render_samples = samples
 
+    cycles_samples = getattr(getattr(scene, "cycles", None), "samples", None)
+    eevee_samples = getattr(getattr(scene, "eevee", None), "taa_render_samples", None)
+    print(
+        "Render settings: "
+        f"engine={scene.render.engine} "
+        f"res={scene.render.resolution_x}x{scene.render.resolution_y} "
+        f"film_transparent={bool(getattr(scene.render, 'film_transparent', False))} "
+        f"cycles.samples={cycles_samples} eevee.taa={eevee_samples} "
+        f"(overrides: resolution={resolution}, samples={samples}, engine={engine})"
+    )
 
-def render_views(cameras: dict[str, Any], output_dir: Path, views: list[str]) -> None:
+
+def _hide_body_meshes_for_bottom(imported_objects: list) -> list:
+    """Hide torso/limb meshes (by name) so the bottom camera isn't blocked by
+    the body on full-body assets. Returns the objects hidden, to restore after."""
+    hidden = []
+    for obj in imported_objects:
+        if obj.type != "MESH" or obj.hide_render:
+            continue
+        name = obj.name.lower()
+        if any(token in name for token in BODY_MESH_TOKENS):
+            obj.hide_render = True
+            hidden.append(obj)
+    if hidden:
+        print(f"Hid {len(hidden)} body mesh(es) for bottom view: {[o.name for o in hidden]}")
+    return hidden
+
+
+def _restore_hidden_meshes(objects: list) -> None:
+    for obj in objects:
+        obj.hide_render = False
+
+
+def render_views(
+    cameras: dict[str, Any],
+    output_dir: Path,
+    views: list[str],
+    imported_objects: list | None = None,
+) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     scene = bpy.context.scene
     # #region agent log
@@ -502,10 +611,15 @@ def render_views(cameras: dict[str, Any], output_dir: Path, views: list[str]) ->
         cam = cameras.get(view)
         if cam is None:
             raise RuntimeError(f"No camera mapped for requested view '{view}'.")
+        hidden = []
+        if view == "bottom" and imported_objects:
+            hidden = _hide_body_meshes_for_bottom(imported_objects)
         scene.camera = cam
         scene.render.filepath = str(output_dir / f"{view}.png")
         bpy.ops.render.render(write_still=True)
         print(f"Rendered {view} -> {scene.render.filepath}")
+        if hidden:
+            _restore_hidden_meshes(hidden)
 
 
 def main() -> None:
@@ -542,8 +656,13 @@ def main() -> None:
     imported = import_asset(asset)
     align_asset(imported, args.align)
     cameras = discover_cameras()
+    # Keep authored camera transforms/optics from cameraSetup.blend.
+    # Only repair non-unit object scale (a common Blender gotcha that warps ortho
+    # without changing the Camera data block the user edited).
+    # normalize_camera_object_scales(cameras)
     configure_render(args.resolution, args.samples, args.engine)
-    render_views(cameras, output_dir, views)
+    log_camera_settings(cameras, views)
+    render_views(cameras, output_dir, views, imported)
     print(f"Done. Wrote renders to {output_dir}")
 
 
