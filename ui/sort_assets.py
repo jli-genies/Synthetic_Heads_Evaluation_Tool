@@ -2,8 +2,8 @@
 
 Buckets (by count of ``\"bad\"`` joint markers):
   - good: 0 bad
-  - mid:  1–3 bad
-  - bad:  4+ bad
+  - mid:  1–2 bad
+  - bad:  3+ bad
 
 List files live under ``lists/good.json``, ``lists/mid.json``, ``lists/bad.json``.
 Each file is a JSON array of asset names (e.g. ``\"foo.fbx\"``).
@@ -35,7 +35,7 @@ def classify_joint_features(joint_features: dict[str, Any] | None) -> Bucket:
     bad_count = count_bad_joint_features(joint_features)
     if bad_count == 0:
         return "good"
-    if bad_count <= 3:
+    if bad_count <= 2:
         return "mid"
     return "bad"
 
