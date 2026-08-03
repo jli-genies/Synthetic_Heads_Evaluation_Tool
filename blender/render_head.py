@@ -1,12 +1,25 @@
 """Render multiview stills using ``blender/cameraSetup.blend`` as the scene template.
 
-Run with Blender (5.1+ for this .blend), not a plain Python interpreter:
+Run with Blender (5.1+ for this .blend), not a plain Python interpreter.
+
+Import + auto-align an asset (headless):
 
     "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe" --background \\
         blender/cameraSetup.blend --python blender/render_head.py -- \\
         path/to/asset.fbx [--align center|feet|origin] [--output-dir DIR] \\
         [--views front side_r bottom] [--resolution 1024] [--samples 64] \\
         [--engine EEVEE|CYCLES|SCENE]
+
+Render whatever is already in the open .blend (you place the head yourself).
+Omit the asset path and pass ``--output-dir``. Do **not** pass the template as
+``--background blender/cameraSetup.blend`` unless that file already contains your
+subject — start Blender on your saved scene instead:
+
+    blender path/to/my_posed_scene.blend --background --python blender/render_head.py -- \\
+        --output-dir path/to/out [--views front side_r bottom]
+
+Or from an open Blender UI (Scripting workspace / Text Editor), run the script
+with the same args after ``--``.
 
 The template provides a shared ``Empty`` look-at / placement pivot with cameras
 parented to it. Full-body assets snap to that Empty; cut heads auto-align to the
@@ -20,13 +33,13 @@ generic names like Camera, Camera.001, ...):
 
 ``Camera.009`` is mapped to ``bottom`` by name (underside / chin view).
 
-Primary outputs land in the repo cache:
+With an asset path, primary outputs land in the repo cache:
 
     <project_root>/renders/<asset_stem>/front.png
-    <project_root>/renders/<asset_stem>/side_r.png
-    <project_root>/renders/<asset_stem>/bottom.png
+    ...
 
 Pass ``--views`` to include more angles, or ``--output-dir`` to override the cache path.
+In scene-only mode ``--output-dir`` is required.
 """
 
 from __future__ import annotations
@@ -69,8 +82,11 @@ try:
 except ImportError as error:  # pragma: no cover - guidance for misuse
     raise SystemExit(
         "This script requires Blender's Python (bpy). Run it with:\n"
-        '  blender --background blender/cameraSetup.blend '
-        "--python blender/render_head.py -- <asset> ..."
+        "  blender --background blender/cameraSetup.blend "
+        "--python blender/render_head.py -- <asset> ...\n"
+        "Or scene-only (current .blend, no import):\n"
+        "  blender my_scene.blend --background --python blender/render_head.py -- "
+        "--output-dir DIR"
     ) from error
 
 
@@ -94,8 +110,11 @@ ALL_VIEWS = (
     "bottom",
 )
 
-# Default: tagging preview angles (front, profile, underside).
+# Default tagging preview angles (front, profile, underside).
 DEFAULT_VIEWS = ("front", "side_r", "bottom")
+
+# Shared framing for all multiview cameras (matches front / side_r / bottom).
+TARGET_ORTHO_SCALE = 0.4
 
 # The underside/chin camera is taken directly by name (as authored in
 # cameraSetup.blend) rather than inferred from position.
@@ -120,26 +139,41 @@ def parse_args() -> argparse.Namespace:
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("asset", type=Path, help="Path to the head or full-body asset to render.")
+    parser.add_argument(
+        "asset",
+        type=Path,
+        nargs="?",
+        default=None,
+        help=(
+            "Path to the head or full-body asset to import. Omit to render the "
+            "already-open scene (requires --output-dir)."
+        ),
+    )
     parser.add_argument(
         "--scene",
         type=Path,
         default=DEFAULT_SCENE,
-        help=f"Multiview .blend template (default: {DEFAULT_SCENE.name}).",
+        help=(
+            f"Multiview .blend template loaded before import (default: {DEFAULT_SCENE.name}). "
+            "Ignored in scene-only mode (no asset)."
+        ),
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
         default=None,
-        help="Directory for PNGs (default: <project_root>/renders/<asset_stem>).",
+        help=(
+            "Directory for PNGs. Default with an asset: "
+            "<project_root>/renders/<asset_stem>. Required when no asset is given."
+        ),
     )
     parser.add_argument(
         "--align",
         choices=["center", "head", "feet", "origin"],
         default="center",
         help=(
-            "Snap asset into the camera rig: center (auto head/body), head (camera-ring "
-            "height), feet, or object origin."
+            "Snap imported asset into the camera rig: center (auto head/body), head "
+            "(camera-ring height), feet, or object origin. Ignored in scene-only mode."
         ),
     )
     parser.add_argument(
@@ -167,7 +201,10 @@ def parse_args() -> argparse.Namespace:
         default="SCENE",
         help="Render engine override, or SCENE to keep the template setting.",
     )
-    return parser.parse_args(argv)
+    args = parser.parse_args(argv)
+    if args.asset is None and args.output_dir is None:
+        parser.error("scene-only mode (no asset) requires --output-dir")
+    return args
 
 
 def load_scene(scene_path: Path) -> None:
@@ -466,6 +503,26 @@ def discover_cameras() -> dict[str, Any]:
     return assigned
 
 
+def normalize_camera_ortho_scales(
+    cameras: dict[str, Any],
+    ortho_scale: float = TARGET_ORTHO_SCALE,
+) -> None:
+    """Force every mapped camera to the same orthographic scale.
+
+    cameraSetup.blend historically mixed 0.4 (front/side/bottom) with 0.7 on the
+    other angles. Re-apply on every render so a later Save of the working .blend
+    cannot silently revive the mismatch.
+    """
+    for view, cam in cameras.items():
+        data = cam.data
+        data.type = "ORTHO"
+        old = float(data.ortho_scale)
+        if abs(old - ortho_scale) < 1e-6:
+            continue
+        data.ortho_scale = ortho_scale
+        print(f"Set ortho_scale on '{cam.name}' ({view}): {old:.3f} -> {ortho_scale:.3f}")
+
+
 def normalize_camera_object_scales(cameras: dict[str, Any]) -> None:
     """Reset non-unit camera object scales that warp ortho frustums / clipping.
 
@@ -624,39 +681,58 @@ def render_views(
 
 def main() -> None:
     args = parse_args()
-    asset = args.asset.resolve()
-    scene_path = args.scene.resolve()
-
-    if asset.suffix.lower() not in IMPORTABLE_EXTENSIONS:
-        raise ValueError(f"Unsupported asset type: {asset.suffix}")
-    if not asset.is_file():
-        raise FileNotFoundError(f"Asset not found: {asset}")
-    if asset == scene_path:
-        raise ValueError("Asset path must differ from the --scene template.")
-
-    output_dir = (args.output_dir or (PROJECT_ROOT / "renders" / asset.stem)).resolve()
     views = list(dict.fromkeys(args.views))  # preserve order, drop duplicates
+    scene_only = args.asset is None
 
-    # #region agent log
-    _agent_log(
-        "F",
-        "render_head.py:main",
-        "starting render",
-        {
-            "asset": str(asset),
-            "suffix": asset.suffix.lower(),
-            "align": args.align,
-            "output_dir": str(output_dir),
-            "views": views,
-        },
-    )
-    # #endregion
-    load_scene(scene_path)
-    clear_placeholders()
-    imported = import_asset(asset)
-    align_asset(imported, args.align)
+    if scene_only:
+        # Keep the currently open .blend (user-positioned subject + camera rig).
+        output_dir = args.output_dir.resolve()
+        imported: list | None = None
+        # #region agent log
+        _agent_log(
+            "F",
+            "render_head.py:main",
+            "starting scene-only render",
+            {"output_dir": str(output_dir), "views": views},
+        )
+        # #endregion
+        print(f"Scene-only mode: rendering current file -> {output_dir}")
+    else:
+        asset = args.asset.resolve()
+        scene_path = args.scene.resolve()
+
+        if asset.suffix.lower() not in IMPORTABLE_EXTENSIONS:
+            raise ValueError(f"Unsupported asset type: {asset.suffix}")
+        if not asset.is_file():
+            raise FileNotFoundError(f"Asset not found: {asset}")
+        if asset == scene_path:
+            raise ValueError("Asset path must differ from the --scene template.")
+
+        output_dir = (args.output_dir or (PROJECT_ROOT / "renders" / asset.stem)).resolve()
+
+        # #region agent log
+        _agent_log(
+            "F",
+            "render_head.py:main",
+            "starting render",
+            {
+                "asset": str(asset),
+                "suffix": asset.suffix.lower(),
+                "align": args.align,
+                "output_dir": str(output_dir),
+                "views": views,
+            },
+        )
+        # #endregion
+        load_scene(scene_path)
+        clear_placeholders()
+        imported = import_asset(asset)
+        align_asset(imported, args.align)
+
     cameras = discover_cameras()
-    # Keep authored camera transforms/optics from cameraSetup.blend.
+    # Keep authored camera transforms from cameraSetup.blend, but always unify
+    # ortho framing so all angles match front / side / bottom.
+    normalize_camera_ortho_scales(cameras)
     # Only repair non-unit object scale (a common Blender gotcha that warps ortho
     # without changing the Camera data block the user edited).
     # normalize_camera_object_scales(cameras)
