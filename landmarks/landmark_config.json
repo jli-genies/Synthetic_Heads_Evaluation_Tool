@@ -1,0 +1,28 @@
+{
+  "reference_head": "authored_heads_var_v2/genericGenie-0013-unified_rig.fbx",
+  "expected_vertex_count": 1832,
+  "topology_hash": "31fd12f6f3e41fc5ec49e423d4f5f3ba4b36fdbe9234b4982bab625fbe262ef1",
+  "points": {
+    "left_eye_outer": 952,
+    "left_eye_inner": 949,
+    "right_eye_inner": 69,
+    "right_eye_outer": 72,
+    "nose_bridge": 12,
+    "nose_tip": 768,
+    "left_nose_ala": 1735,
+    "right_nose_ala": 883,
+    "mouth_left_corner": 1311,
+    "mouth_right_corner": 431,
+    "upper_lip_top": 28,
+    "lower_lip_bottom": 27,
+    "left_brow_inner": 1020,
+    "left_brow_outer": 1024,
+    "right_brow_inner": 140,
+    "right_brow_outer": 144,
+    "chin_bottom": 45,
+    "jaw_left": 1276,
+    "jaw_right": 396,
+    "left_cheekbone": 1014,
+    "right_cheekbone": 134
+  }
+}
