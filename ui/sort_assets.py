@@ -1,11 +1,10 @@
-"""Sort assets into good / mid / bad lists from joint-feature ratings.
+"""Sort assets into good / bad lists from joint-feature ratings.
 
 Buckets (by count of ``\"bad\"`` joint markers):
   - good: 0 bad
-  - mid:  1–2 bad
-  - bad:  3+ bad
+  - bad:  1+ bad
 
-List files live under ``lists/good.json``, ``lists/mid.json``, ``lists/bad.json``.
+List files live under ``lists/good.json`` and ``lists/bad.json``.
 Each file is a JSON array of asset names (e.g. ``\"foo.fbx\"``).
 """
 
@@ -15,10 +14,9 @@ import json
 from pathlib import Path
 from typing import Any, Literal
 
-Bucket = Literal["good", "mid", "bad"]
+Bucket = Literal["good", "bad"]
 BUCKET_FILES: tuple[tuple[Bucket, str], ...] = (
     ("good", "good.json"),
-    ("mid", "mid.json"),
     ("bad", "bad.json"),
 )
 
@@ -32,11 +30,8 @@ def count_bad_joint_features(joint_features: dict[str, Any] | None) -> int:
 
 def classify_joint_features(joint_features: dict[str, Any] | None) -> Bucket:
     """Map joint-feature ratings to a quality bucket."""
-    bad_count = count_bad_joint_features(joint_features)
-    if bad_count == 0:
+    if count_bad_joint_features(joint_features) == 0:
         return "good"
-    if bad_count <= 2:
-        return "mid"
     return "bad"
 
 

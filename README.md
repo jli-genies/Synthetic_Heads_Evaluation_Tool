@@ -48,7 +48,7 @@ If GenieSAM is configured locally (see `segmentation_config.json`), the tool can
 | `tools/run_geniesam.py` | CLI wrapper for local GenieSAM → ISAT JSON |
 | `tag_schema.json` | Tag categories and field definitions |
 | `segmentation_config.json` | GenieSAM / endpoint / checkpoint settings |
-| `lists/` | `good.json` / `mid.json` / `bad.json` asset-name lists from joint eval |
+| `lists/` | `good.json` / `bad.json` asset-name lists from joint eval |
 | `renders/` | Cached front/side (and optional segmentation) previews |
 | `<asset_dir>/<stem>/` | Per-asset attribute + joint eval JSON beside the source mesh |
 
