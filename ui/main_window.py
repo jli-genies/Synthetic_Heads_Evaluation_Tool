@@ -229,10 +229,15 @@ class MainWindow(QMainWindow):
                 json.dumps(joint_payload, indent=2) + "\n", encoding="utf-8"
             )
             self._ensure_asset_copy_in_tag_dir(self.current_asset)
+            variation_folder = None
+            grandparent = self.current_asset.resolve().parent.parent.name
+            if grandparent.startswith("variation_"):
+                variation_folder = grandparent
             bucket = sort_asset_by_joint_features(
                 self.project_root,
                 self.current_asset.name,
                 joint_features,
+                variation_folder=variation_folder,
             )
         except OSError as error:
             QMessageBox.critical(self, "Unable to save tags", str(error))
