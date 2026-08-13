@@ -27,17 +27,59 @@ VARIANT_NAME_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+# The pre-final "cutted" export (bare cutted/ subfolder) drops the leading
+# <ethnicity>_<gender> prefix and the trailing _var_N suffix, e.g.
+# "auth_african_f_0022_frame_0001_subdiv_head.glb".
+BARE_CUTTED_NAME_PATTERN = re.compile(
+    r"^auth_(?P<ethnicity>[a-z]+)_(?P<gender_letter>[mf])_(?P<head_id>\d{4})_frame_(?P<frame>\d+)_subdiv_head$",
+    re.IGNORECASE,
+)
+
+
+def parse_variant_stem(stem: str) -> dict[str, str] | None:
+    """Parse a generated-variant filename stem into its authored-parent identity.
+
+    Handles both naming conventions seen in the dataset:
+      - final tagged form: <eth>_<gender>_auth_<eth>_<g>_<id>_frame_<NNNN>_subdiv_head_var_<N>
+      - bare pre-cut form: auth_<eth>_<g>_<id>_frame_<NNNN>_subdiv_head (no _var_N suffix)
+
+    Returns {"ethnicity", "gender", "head_id", "frame", "auth_dir"}, or None if
+    neither convention matches.
+    """
+    match = VARIANT_NAME_PATTERN.match(stem)
+    if match:
+        return {
+            "ethnicity": match["ethnicity"].lower(),
+            "gender": match["gender"].lower(),
+            "head_id": match["auth_dir"].rsplit("_", 1)[-1],
+            "frame": match["frame"],
+            "auth_dir": match["auth_dir"],
+        }
+    match = BARE_CUTTED_NAME_PATTERN.match(stem)
+    if match:
+        gender_letter = match["gender_letter"].lower()
+        gender = "male" if gender_letter == "m" else "female"
+        return {
+            "ethnicity": match["ethnicity"].lower(),
+            "gender": gender,
+            "head_id": match["head_id"],
+            "frame": match["frame"],
+            "auth_dir": f"auth_{match['ethnicity'].lower()}_{gender_letter}_{match['head_id']}",
+        }
+    return None
+
 
 def find_chaos_joints_json(variant_path: Path) -> Path:
     """Derive the sibling final_frame*.json path from a variant glb/fbx's own path."""
-    match = VARIANT_NAME_PATTERN.match(variant_path.stem)
-    if not match:
+    parsed = parse_variant_stem(variant_path.stem)
+    if parsed is None:
         raise ValueError(
-            f"'{variant_path.stem}' doesn't match the expected variant naming convention "
-            "(<ethnicity>_<gender>_auth_..._frame_NNNN_subdiv_head_var_N)."
+            f"'{variant_path.stem}' doesn't match either known variant naming convention "
+            "(<ethnicity>_<gender>_auth_..._frame_NNNN_subdiv_head_var_N, or "
+            "auth_<eth>_<g>_<id>_frame_NNNN_subdiv_head)."
         )
     variation_root = variant_path.parent.parent
-    frame_dir = variation_root / match["auth_dir"] / f"frame_{match['frame']}"
+    frame_dir = variation_root / parsed["auth_dir"] / f"frame_{parsed['frame']}"
     candidates = sorted(frame_dir.glob("final_frame*.json"))
     if not candidates:
         raise FileNotFoundError(f"No chaos-joints JSON found under {frame_dir}")

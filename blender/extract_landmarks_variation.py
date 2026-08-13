@@ -1,4 +1,4 @@
-"""Extract landmark positions from a generated variation asset via nearest-surface projection.
+"""Extract landmark positions from generated variation assets via nearest-surface projection.
 
 Generated variations (e.g. Gen3d_testing/synthetic_heads/dataset_5.1/.../cutted_mat_fixed/*.glb)
 do not share the authored heads' fixed mesh topology -- vertex count differs per
@@ -7,10 +7,20 @@ position from the variation's authored *parent* (already extracted via
 extract_landmarks.py) and snaps it onto the closest point on the variation's
 own mesh surface (a read-only BVH nearest-point query -- no topology edits).
 
-Run with Blender (not a plain Python interpreter):
+Run with Blender (not a plain Python interpreter).
+
+Single asset:
     blender --background --factory-startup --python blender/extract_landmarks_variation.py -- \\
         path/to/variation.glb --parent-landmarks landmarks_raw/<parent_stem>.json \\
         [--output out.json] [--mesh-name-hint head]
+
+Batch (many variants in one Blender process -- each can have a different parent):
+    blender --background --factory-startup --python blender/extract_landmarks_variation.py -- \\
+        --manifest manifest.json
+
+``manifest.json`` is a JSON array of
+``{"asset": ..., "parent_landmarks": ..., "output": ..., "mesh_name_hint": "head"}``
+objects (``mesh_name_hint`` optional, defaults to "head").
 
 A large snap distance for a given point is itself a signal -- it means that
 facial feature moved far from where the parent's version of it was.
@@ -37,25 +47,37 @@ except ImportError as error:  # pragma: no cover - guidance for misuse
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 IMPORTABLE_EXTENSIONS = {".fbx", ".gltf", ".glb"}
+DEFAULT_MESH_NAME_HINT = "head"
 
 
 def parse_args() -> argparse.Namespace:
     argv = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else []
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("asset", type=Path, help="Variation asset to measure (.glb / .fbx).")
+    parser.add_argument("asset", type=Path, nargs="?", help="Single variation asset to measure (.glb / .fbx).")
     parser.add_argument(
         "--parent-landmarks",
         type=Path,
-        required=True,
+        default=None,
         help="Raw landmark JSON for this variation's authored parent (from extract_landmarks.py).",
     )
     parser.add_argument("--output", type=Path, default=None, help="Output JSON path (default: <asset_stem>.json next to the asset).")
     parser.add_argument(
         "--mesh-name-hint",
-        default="head",
+        default=DEFAULT_MESH_NAME_HINT,
         help="Substring (case-insensitive) preferred when choosing the head mesh among imported objects.",
     )
-    return parser.parse_args(argv)
+    parser.add_argument("--manifest", type=Path, default=None, help="JSON manifest of many variants to process.")
+    args = parser.parse_args(argv)
+    if args.manifest is None and (args.asset is None or args.parent_landmarks is None):
+        parser.error("provide either <asset> + --parent-landmarks, or --manifest")
+    return args
+
+
+def load_manifest(path: Path) -> list[dict]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, list):
+        raise ValueError(f"Manifest must be a JSON array: {path}")
+    return data
 
 
 def reset_scene() -> None:
@@ -117,19 +139,16 @@ def project_landmarks(bvh: BVHTree, parent_landmarks: dict[str, list[float]]) ->
     return landmarks, snap_distances
 
 
-def main() -> None:
-    args = parse_args()
-    asset = args.asset.resolve()
-    parent_data = json.loads(args.parent_landmarks.read_text(encoding="utf-8"))
+def process_variant(asset: Path, parent_landmarks_path: Path, output_path: Path, mesh_name_hint: str) -> None:
+    parent_data = json.loads(parent_landmarks_path.read_text(encoding="utf-8"))
     parent_landmarks = parent_data["landmarks"]
 
     reset_scene()
     imported = import_asset(asset)
-    head = find_head_mesh(imported, args.mesh_name_hint)
+    head = find_head_mesh(imported, mesh_name_hint)
     bvh = build_bvh(head)
     landmarks, snap_distances = project_landmarks(bvh, parent_landmarks)
 
-    output_path = args.output.resolve() if args.output else asset.parent / f"{asset.stem}.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(
         json.dumps(
@@ -146,7 +165,36 @@ def main() -> None:
         encoding="utf-8",
     )
     max_snap = max(snap_distances.values()) if snap_distances else 0.0
-    print(f"Done. Wrote {output_path} (max snap distance: {max_snap:.5f})")
+    print(f"  -> {output_path} (max snap distance: {max_snap:.5f})")
+
+
+def main() -> None:
+    args = parse_args()
+
+    if args.manifest:
+        entries = load_manifest(args.manifest.resolve())
+        succeeded = 0
+        failed = 0
+        for entry in entries:
+            asset = Path(entry["asset"]).resolve()
+            parent_landmarks_path = Path(entry["parent_landmarks"]).resolve()
+            output_path = Path(entry["output"]).resolve()
+            mesh_name_hint = entry.get("mesh_name_hint", DEFAULT_MESH_NAME_HINT)
+            print(f"Processing {asset.name} ...")
+            try:
+                process_variant(asset, parent_landmarks_path, output_path, mesh_name_hint)
+                succeeded += 1
+            except Exception as error:  # noqa: BLE001 - keep batch runs going, report at the end
+                print(f"ERROR processing {asset}: {error}")
+                failed += 1
+        print(f"Done. {succeeded} succeeded, {failed} failed, out of {len(entries)}.")
+        if failed and succeeded == 0:
+            sys.exit(1)
+        return
+
+    asset = args.asset.resolve()
+    output_path = args.output.resolve() if args.output else asset.parent / f"{asset.stem}.json"
+    process_variant(asset, args.parent_landmarks.resolve(), output_path, args.mesh_name_hint)
 
 
 if __name__ == "__main__":

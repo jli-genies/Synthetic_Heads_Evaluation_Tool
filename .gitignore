@@ -8,3 +8,4 @@ joint_features/
 segmentation_output/
 blender/cameraSetup.blend1
 landmarks_raw/*
+landmarks_raw_variants/*
