@@ -39,7 +39,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from landmarks import chaos_joints as chaos_math  # noqa: E402
-from landmarks import ratios as ratio_math  # noqa: E402
+from landmarks.feature_row import compute_feature_row  # noqa: E402
 from ui import sort_assets as sa  # noqa: E402
 
 DEFAULT_DATASET_ROOT = Path("C:/Users/auror/Documents/Gen3d_testing/synthetic_heads/dataset_5.1")
@@ -202,17 +202,10 @@ def main() -> None:
             extraction_failed.append(output_stem)
             continue
 
-        candidate_data = json.loads(output_path.read_text(encoding="utf-8"))
-        parent_data = json.loads(meta["parent_landmarks_path"].read_text(encoding="utf-8"))
-
-        parent_distances = ratio_math.compute_distances(parent_data["landmarks"])
-        candidate_distances = ratio_math.compute_distances(candidate_data["landmarks"])
-        candidate_ratios = ratio_math.compute_ratios(candidate_distances)
-        deviation = ratio_math.compare_to_reference(candidate_distances, parent_distances)
-
+        feature_row = compute_feature_row(output_path, meta["parent_landmarks_path"])
         row = {
-            "asset": Path(candidate_data["asset"]).name,
-            "parent_asset": Path(parent_data["asset"]).name,
+            "asset": feature_row.pop("asset"),
+            "parent_asset": feature_row.pop("parent_asset"),
             "label": meta["label"],
             "variation_folder": meta["variation_folder"],
             "ethnicity": meta["ethnicity"],
@@ -220,17 +213,7 @@ def main() -> None:
             "head_id": meta["head_id"],
             "frame": meta["frame"],
         }
-        row.update({f"dist_{k}": v for k, v in candidate_distances.items()})
-        row.update({f"ratio_{k}": v for k, v in candidate_ratios.items()})
-        row.update({f"absdiff_{k}": v["abs_diff"] for k, v in deviation.items()})
-        row.update({f"pctdiff_{k}": v["pct_diff"] for k, v in deviation.items()})
-
-        try:
-            chaos_magnitudes = chaos_math.compute_bind_magnitudes(Path(candidate_data["asset"]))
-            row.update({f"chaos_{k}": v for k, v in chaos_magnitudes.items()})
-        except (ValueError, FileNotFoundError) as error:
-            print(f"  note: no chaos-joint values for {row['asset']} ({error})")
-
+        row.update(feature_row)
         rows.append(row)
 
     if extraction_failed:
