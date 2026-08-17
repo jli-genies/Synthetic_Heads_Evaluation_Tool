@@ -1,0 +1,40 @@
+Loaded 752 rows, 13 features (chaos_), 54 distinct head_id groups.
+Label balance: 255 good / 497 bad.
+
+[range_anomaly:rms] 5-fold StratifiedGroupKFold (grouped by head_id):
+  f1                 0.654 +/- 0.053  [0.638 0.716 0.636 0.573 0.709]
+  balanced_accuracy  0.729 +/- 0.054  [0.732 0.779 0.717 0.633 0.783]
+  roc_auc            0.852 +/- 0.023  [0.87  0.87  0.823 0.826 0.87 ]
+
+Per-joint good ranges (fit on all 752 rows), threshold=1.277:
+                          median  scale  lower_2sigma  upper_2sigma
+chaos_JawBind              0.801  0.305         0.191         1.411
+chaos_MouthBind            1.150  0.656        -0.161         2.462
+chaos_MouthInnerBind       0.365  0.144         0.077         0.653
+chaos_LeftCheekBind        1.570  0.240         1.090         2.050
+chaos_RightCheekBind       1.576  0.271         1.035         2.117
+chaos_NoseBind             1.099  0.521         0.057         2.141
+chaos_LeftBrowBind         0.719  0.415        -0.110         1.549
+chaos_RightBrowBind        0.719  0.415        -0.110         1.549
+chaos_RightEyeSocketBind   1.184  0.340         0.503         1.864
+chaos_LeftEyeSocketBind    1.184  0.340         0.503         1.864
+chaos_FaceBind             0.103  0.024         0.055         0.152
+chaos_LeftCheekBoneBind    0.963  0.216         0.531         1.395
+chaos_RightCheekBoneBind   0.963  0.216         0.531         1.395
+
+181/752 assets misclassified out-of-fold (never-seen-this-head predictions).
+Full per-asset predictions written to C:\Users\auror\Documents\Github\Synthetic_Heads_Evaluation_Tool\landmarks\oof_predictions_range.csv
+
+Most confidently wrong (biggest surprises):
+  auth_asian_f_0022_frame_0009_subdiv_head.glb            actual=good predicted=bad  proba_good=0.16 top_contributor=chaos_JawBind
+  auth_asian_f_0022_frame_0006_subdiv_head.glb            actual=good predicted=bad  proba_good=0.26 top_contributor=chaos_NoseBind
+  auth_middleeast_f_0009_frame_0002_subdiv_head.glb       actual=good predicted=bad  proba_good=0.27 top_contributor=chaos_JawBind
+  latino_female_auth_latino_f_0040_frame_0002_subdiv_head_var_0.glb actual=good predicted=bad  proba_good=0.29 top_contributor=chaos_LeftCheekBoneBind
+  middleeast_female_auth_middleeast_f_0028_frame_0001_subdiv_head_var_0.glb actual=good predicted=bad  proba_good=0.29 top_contributor=chaos_LeftCheekBoneBind
+  asian_male_auth_asian_m_0035_frame_0003_subdiv_head_var_0.glb actual=good predicted=bad  proba_good=0.29 top_contributor=chaos_LeftCheekBoneBind
+  auth_asian_f_0022_frame_0003_subdiv_head.glb            actual=good predicted=bad  proba_good=0.30 top_contributor=chaos_JawBind
+  latino_female_auth_latino_f_0018_frame_0001_subdiv_head_var_0.glb actual=good predicted=bad  proba_good=0.30 top_contributor=chaos_LeftCheekBoneBind
+  middleeast_female_auth_middleeast_f_0041_frame_0003_subdiv_head_var_0.glb actual=good predicted=bad  proba_good=0.31 top_contributor=chaos_LeftCheekBoneBind
+  asian_male_auth_asian_m_0034_frame_0001_subdiv_head_var_0.glb actual=good predicted=bad  proba_good=0.31 top_contributor=chaos_LeftCheekBoneBind
+
+Final model (fit on all 752 rows) saved to C:\Users\auror\Documents\Github\Synthetic_Heads_Evaluation_Tool\landmarks\model_range.joblib

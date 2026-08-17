@@ -93,9 +93,18 @@ class RobustRangeAnomalyClassifier(ClassifierMixin, BaseEstimator):
         return np.column_stack([1 - proba_good, proba_good])
 
     def top_contributors(self, x: pd.DataFrame) -> pd.Series:
-        """Name of the joint with the largest |z| for each row (diagnostic)."""
+        """Name of the joint with the largest |z| for each row (diagnostic).
+
+        NaN for rows with no usable feature at all (e.g. an asset with no
+        chaos_* data) -- pandas' idxmax raises on an all-NaN row even with
+        skipna=True, so those rows are handled separately instead of crashing.
+        """
         z = self._z(pd.DataFrame(x))
-        return z.idxmax(axis=1, skipna=True)
+        has_any = z.notna().any(axis=1)
+        result = pd.Series(np.nan, index=z.index, dtype=object)
+        if has_any.any():
+            result.loc[has_any] = z.loc[has_any].idxmax(axis=1, skipna=True)
+        return result
 
     def per_feature_z(self, x: pd.DataFrame) -> pd.DataFrame:
         """Public per-feature |z|-score table, one row per input row."""

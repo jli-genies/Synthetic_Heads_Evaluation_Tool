@@ -35,16 +35,30 @@ BARE_CUTTED_NAME_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+# The literal authored head itself (no chaos variation applied at all -- these
+# have no final_frame*.json to look up), e.g.
+# "auth_african_f_0012_frame_0012_subdiv_auth_african_f_0012_head.glb". The
+# <eth>_<g>_<id> triple is repeated before "_head" instead of the plain
+# "_subdiv_head" suffix BARE_CUTTED_NAME_PATTERN expects.
+AUTHORED_HEAD_NAME_PATTERN = re.compile(
+    r"^auth_(?P<ethnicity>[a-z]+)_(?P<gender_letter>[mf])_(?P<head_id>\d{4})_frame_(?P<frame>\d+)"
+    r"_subdiv_auth_[a-z]+_[mf]_\d{4}_head$",
+    re.IGNORECASE,
+)
+
 
 def parse_variant_stem(stem: str) -> dict[str, str] | None:
     """Parse a generated-variant filename stem into its authored-parent identity.
 
-    Handles both naming conventions seen in the dataset:
+    Handles three naming conventions seen in the dataset:
       - final tagged form: <eth>_<gender>_auth_<eth>_<g>_<id>_frame_<NNNN>_subdiv_head_var_<N>
       - bare pre-cut form: auth_<eth>_<g>_<id>_frame_<NNNN>_subdiv_head (no _var_N suffix)
+      - literal authored head: auth_<eth>_<g>_<id>_frame_<NNNN>_subdiv_auth_<eth>_<g>_<id>_head
+        (no chaos variation applied -- callers should expect no final_frame*.json
+        for these, i.e. compute_bind_magnitudes will raise FileNotFoundError)
 
     Returns {"ethnicity", "gender", "head_id", "frame", "auth_dir"}, or None if
-    neither convention matches.
+    none of the conventions match.
     """
     match = VARIANT_NAME_PATTERN.match(stem)
     if match:
@@ -55,7 +69,7 @@ def parse_variant_stem(stem: str) -> dict[str, str] | None:
             "frame": match["frame"],
             "auth_dir": match["auth_dir"],
         }
-    match = BARE_CUTTED_NAME_PATTERN.match(stem)
+    match = BARE_CUTTED_NAME_PATTERN.match(stem) or AUTHORED_HEAD_NAME_PATTERN.match(stem)
     if match:
         gender_letter = match["gender_letter"].lower()
         gender = "male" if gender_letter == "m" else "female"

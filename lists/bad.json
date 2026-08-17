@@ -4,6 +4,18 @@
     "variation_folder": "variation_short_faces_001"
   },
   {
+    "name": "african_female_auth_african_f_0012_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "african_female_auth_african_f_0012_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "african_female_auth_african_f_0020_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
     "name": "african_female_auth_african_f_0022_frame_0001_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
   },
@@ -34,6 +46,10 @@
   {
     "name": "african_female_auth_african_f_0022_frame_0009_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_002"
+  },
+  {
+    "name": "african_female_auth_african_f_0022_frame_0010_subdiv_head_var_0.glb",
+    "variation_folder": "variation_long_faces_001"
   },
   {
     "name": "african_female_auth_african_f_0022_frame_0010_subdiv_head_var_0.glb",
@@ -92,6 +108,18 @@
     "variation_folder": "variation_long_faces_002"
   },
   {
+    "name": "african_female_auth_african_f_0037_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "african_female_auth_african_f_0061_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "african_female_auth_african_f_0061_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
     "name": "african_male_auth_african_m_0001_frame_0001_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_003"
   },
@@ -122,6 +150,18 @@
   {
     "name": "african_male_auth_african_m_0001_frame_0010_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_003"
+  },
+  {
+    "name": "african_male_auth_african_m_0003_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "african_male_auth_african_m_0003_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "african_male_auth_african_m_0003_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "african_male_auth_african_m_0005_frame_0001_subdiv_head_var_0.glb",
@@ -184,24 +224,72 @@
     "variation_folder": "variation_long_faces_003"
   },
   {
+    "name": "asian_female_auth_asian_f_0003_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0008_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0009_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0009_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0010_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0010_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0011_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0011_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0011_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
     "name": "asian_female_auth_asian_f_0013_frame_0001_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
   },
   {
     "name": "asian_female_auth_asian_f_0013_frame_0001_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_002"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0013_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "asian_female_auth_asian_f_0013_frame_0002_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
   },
   {
+    "name": "asian_female_auth_asian_f_0013_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
     "name": "asian_female_auth_asian_f_0013_frame_0003_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
   },
   {
     "name": "asian_female_auth_asian_f_0013_frame_0003_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_002"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0013_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "asian_female_auth_asian_f_0013_frame_0004_subdiv_head_var_0.glb",
@@ -220,10 +308,6 @@
     "variation_folder": "variation_long_faces_002"
   },
   {
-    "name": "asian_female_auth_asian_f_0013_frame_0007_subdiv_head_var_0.glb",
-    "variation_folder": "variation_long_faces_001"
-  },
-  {
     "name": "asian_female_auth_asian_f_0013_frame_0010_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
   },
@@ -232,8 +316,52 @@
     "variation_folder": "variation_long_faces_002"
   },
   {
+    "name": "asian_female_auth_asian_f_0016_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0016_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0016_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0018_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0018_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0018_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0021_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0021_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0021_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0022_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
     "name": "asian_female_auth_asian_f_0022_frame_0003_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0022_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "asian_female_auth_asian_f_0022_frame_0005_subdiv_head_var_0.glb",
@@ -262,6 +390,126 @@
   {
     "name": "asian_female_auth_asian_f_0022_frame_0009_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0026_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0026_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0026_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0033_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0033_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0033_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0034_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0034_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0034_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0035_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0035_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0035_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0036_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0036_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0036_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0039_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0040_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0040_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0041_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0041_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0041_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0061_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0061_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0061_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0069_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0069_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_female_auth_asian_f_0069_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0011_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0011_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0011_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "asian_male_auth_asian_m_0016_frame_0001_subdiv_head_var_0.glb",
@@ -328,6 +576,98 @@
     "variation_folder": "variation_long_faces_002"
   },
   {
+    "name": "asian_male_auth_asian_m_0017_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0017_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0017_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0023_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0023_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0023_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0027_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0029_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0029_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0029_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0033_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0033_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0033_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0034_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0035_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0035_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0037_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0037_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0037_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0042_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0042_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0043_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0043_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
     "name": "asian_male_auth_asian_m_0048_frame_0001_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_003"
   },
@@ -366,6 +706,18 @@
   {
     "name": "asian_male_auth_asian_m_0051_frame_0010_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_003"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0068_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0068_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "asian_male_auth_asian_m_0068_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "auth_african_f_0022_frame_0001_subdiv_head.glb",
@@ -1052,6 +1404,46 @@
     "variation_folder": "variation_narrower_jaw_002"
   },
   {
+    "name": "caucasian_female_auth_caucasian_f_0003_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_female_auth_caucasian_f_0007_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_female_auth_caucasian_f_0007_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_female_auth_caucasian_f_0007_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_female_auth_caucasian_f_0009_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_female_auth_caucasian_f_0009_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_female_auth_caucasian_f_0009_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_female_auth_caucasian_f_0028_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_female_auth_caucasian_f_0028_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_female_auth_caucasian_f_0028_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
     "name": "caucasian_male_auth_caucasian_m_0025_frame_0001_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
   },
@@ -1104,6 +1496,14 @@
     "variation_folder": "variation_long_faces_002"
   },
   {
+    "name": "caucasian_male_auth_caucasian_m_0034_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "caucasian_male_auth_caucasian_m_0034_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
     "name": "latino_female_auth_latino_f_0014_frame_0001_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_003"
   },
@@ -1130,6 +1530,22 @@
   {
     "name": "latino_female_auth_latino_f_0014_frame_0010_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_003"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0018_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0018_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0027_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0027_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "latino_female_auth_latino_f_0031_frame_0001_subdiv_head_var_0.glb",
@@ -1166,6 +1582,34 @@
   {
     "name": "latino_female_auth_latino_f_0031_frame_0009_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_003"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0032_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0032_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0040_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0040_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0047_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0047_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "latino_female_auth_latino_f_0047_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "latino_male_auth_latino_m_0002_frame_0001_subdiv_head_var_0.glb",
@@ -1228,16 +1672,36 @@
     "variation_folder": "variation_long_faces_003"
   },
   {
-    "name": "latino_male_auth_latino_m_0036_frame_0008_subdiv_head_var_0.glb",
-    "variation_folder": "variation_long_faces_003"
-  },
-  {
     "name": "latino_male_auth_latino_m_0036_frame_0009_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_003"
   },
   {
     "name": "latino_male_auth_latino_m_0036_frame_0010_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_003"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0005_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0005_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0005_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0006_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0006_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0006_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "middleeast_female_auth_middleeast_f_0009_frame_0001_subdiv_head_var_0.glb",
@@ -1272,10 +1736,6 @@
     "variation_folder": "variation_long_faces_002"
   },
   {
-    "name": "middleeast_female_auth_middleeast_f_0009_frame_0007_subdiv_head_var_0.glb",
-    "variation_folder": "variation_long_faces_001"
-  },
-  {
     "name": "middleeast_female_auth_middleeast_f_0009_frame_0008_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
   },
@@ -1292,12 +1752,48 @@
     "variation_folder": "variation_long_faces_002"
   },
   {
+    "name": "middleeast_female_auth_middleeast_f_0013_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0013_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0015_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0015_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0021_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0021_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0021_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
     "name": "middleeast_female_auth_middleeast_f_0028_frame_0002_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_001"
   },
   {
     "name": "middleeast_female_auth_middleeast_f_0028_frame_0002_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_002"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0028_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0028_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "middleeast_female_auth_middleeast_f_0028_frame_0004_subdiv_head_var_0.glb",
@@ -1308,8 +1804,24 @@
     "variation_folder": "variation_long_faces_002"
   },
   {
-    "name": "middleeast_male_auth_middleeast_m_0011_frame_0001_subdiv_head_var_0.glb",
-    "variation_folder": "variation_long_faces_001"
+    "name": "middleeast_female_auth_middleeast_f_0032_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0032_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0032_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0041_frame_0001_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_female_auth_middleeast_f_0041_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "middleeast_male_auth_middleeast_m_0011_frame_0001_subdiv_head_var_0.glb",
@@ -1430,6 +1942,14 @@
   {
     "name": "middleeast_male_auth_middleeast_m_0025_frame_0010_subdiv_head_var_0.glb",
     "variation_folder": "variation_long_faces_002"
+  },
+  {
+    "name": "middleeast_male_auth_middleeast_m_0033_frame_0002_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
+  },
+  {
+    "name": "middleeast_male_auth_middleeast_m_0033_frame_0003_subdiv_head_var_0.glb",
+    "variation_folder": "variation_short_faces_001"
   },
   {
     "name": "middleeast_male_auth_middleeast_m_0043_frame_0001_subdiv_head_var_0.glb",
