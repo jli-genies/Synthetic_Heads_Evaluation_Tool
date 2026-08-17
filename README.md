@@ -1,13 +1,13 @@
 # Synthetic Heads Evaluation Tool
 
-PyQt6 GUI for reviewing synthetic head assets and tagging them against a shared attribute schema (`tag_schema.json`). Optional Blender renders and GenieSAM segmentation help with visualization and partial auto-fill.
+PyQt6 GUI for reviewing synthetic head assets and tagging them against a shared attribute schema (`tag_schema.json`). Optional Blender renders help with visualization, and a trained range-anomaly model can pre-fill per-joint good/bad ratings.
 
 ## Requirements
 
 - Python 3.10+ recommended
 - [PyQt6](https://pypi.org/project/PyQt6/) (`requirements.txt`)
-- [Blender](https://www.blender.org/) 5.1+ on `PATH` (or a standard Windows install) for rendering
-- Optional: a working GenieSAM install + SAM3 checkpoint for segmentation-assisted tagging (`segmentation_config.json`)
+- [Blender](https://www.blender.org/) 5.1+ on `PATH` (or a standard Windows install) for rendering and for the Evaluate joints button
+- Optional: `landmarks/model_range.joblib` trained (`tools/train_range_classifier.py`) for the Evaluate joints button to have something to score with
 
 ```bash
 python -m venv .venv
@@ -34,9 +34,15 @@ Load an asset folder in the GUI to populate the asset tree.
 4. **Save** — Use **Submit / Update attributes** to write two sidecars beside the mesh under `<asset_stem>/`: `<stem>_tags.json` (attributes) and `<stem>_joint_eval.json` (joint features). The source `.fbx` / `.glb` is also copied into that folder if missing.
 5. **Review** — Open the per-asset folder next to each source mesh to inspect saved tags.
 
-### Optional: segmentation assist
+### Optional: model-assisted joint evaluation
 
-If GenieSAM is configured locally (see `segmentation_config.json`), the tool can run segmentation and propose values for some tags. This requires a working GenieSAM checkout, checkpoint path, and (for HTTP mode) a reachable endpoint.
+The **Evaluate joints** button runs the trained range-anomaly model
+(`landmarks/model_range.joblib`, built by `tools/train_range_classifier.py`)
+against the selected asset and pre-fills the Joint Features tab's per-marker
+good/bad ratings, which you then review and correct before Submit. It shells
+out to `tools/predict_asset_range.py`, which needs Blender on `PATH` (or a
+standard Windows install) to extract the asset's landmarks. If no model has
+been trained yet, the button reports that clearly instead of guessing.
 
 ## Project layout
 
@@ -44,12 +50,12 @@ If GenieSAM is configured locally (see `segmentation_config.json`), the tool can
 |------|------|
 | `ui/` | PyQt main window, asset tree, render + tag panels |
 | `blender/` | `cameraSetup.blend` + `render_head.py` multiview stills |
-| `segmentation/` | GenieSAM client, heuristics, tag proposals |
-| `tools/run_geniesam.py` | CLI wrapper for local GenieSAM → ISAT JSON |
+| `landmarks/` | Distance/ratio math, feature-row builder, trained models |
+| `tools/train_range_classifier.py`, `tools/predict_asset_range.py` | Range-anomaly model training + single-asset scoring |
+| `tools/train_classifier.py`, `tools/predict_asset.py` | Gradient-boosted classifier training + single-asset scoring |
 | `tag_schema.json` | Tag categories and field definitions |
-| `segmentation_config.json` | GenieSAM / endpoint / checkpoint settings |
 | `lists/` | `good.json` / `bad.json` asset-name lists from joint eval |
-| `renders/` | Cached front/side (and optional segmentation) previews |
+| `renders/` | Cached front/side previews and per-asset model output (`joint_eval_predicted.json`) |
 | `<asset_dir>/<stem>/` | Per-asset attribute + joint eval JSON beside the source mesh |
 
 ## Notes

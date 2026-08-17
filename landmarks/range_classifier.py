@@ -97,6 +97,10 @@ class RobustRangeAnomalyClassifier(ClassifierMixin, BaseEstimator):
         z = self._z(pd.DataFrame(x))
         return z.idxmax(axis=1, skipna=True)
 
+    def per_feature_z(self, x: pd.DataFrame) -> pd.DataFrame:
+        """Public per-feature |z|-score table, one row per input row."""
+        return self._z(pd.DataFrame(x))
+
     def range_table(self) -> pd.DataFrame:
         """Human-readable per-joint good range (median +/- 2*scale)."""
         return pd.DataFrame(
