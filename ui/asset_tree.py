@@ -18,6 +18,11 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
+try:
+    from .sort_assets import render_cache_key
+except ImportError:  # Allow running this file directly.
+    from sort_assets import render_cache_key
+
 
 ASSET_EXTENSIONS = {".glb", ".fbx"}
 PATH_ROLE = Qt.ItemDataRole.UserRole
@@ -267,7 +272,7 @@ class AssetTree(QWidget):
             )
 
     def _has_renders(self, asset: Path) -> bool:
-        cache = self.project_root / "renders" / asset.stem
+        cache = self.project_root / "renders" / render_cache_key(asset)
         return (
             (cache / "front.png").is_file()
             and (cache / "side_r.png").is_file()
@@ -329,7 +334,7 @@ class AssetTree(QWidget):
         blender = find_blender_executable()
         scene = self.project_root / "blender" / "cameraSetup.blend"
         script = self.project_root / "blender" / "render_head.py"
-        output_dir = self.project_root / "renders" / asset.stem
+        output_dir = self.project_root / "renders" / render_cache_key(asset)
         assert blender is not None
 
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -450,7 +455,7 @@ class AssetTree(QWidget):
             else:
                 self.refresh_render_status()
 
-            self.status_message.emit(f"Rendered {asset.name} → renders/{asset.stem}/")
+            self.status_message.emit(f"Rendered {asset.name} → renders/{render_cache_key(asset)}/")
             self.render_finished.emit(asset)
             self.asset_selected.emit(asset)
             self.assets_changed.emit()

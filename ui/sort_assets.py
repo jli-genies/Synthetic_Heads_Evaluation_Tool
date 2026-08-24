@@ -27,6 +27,29 @@ BUCKET_FILES: tuple[tuple[Bucket, str], ...] = (
 )
 
 
+def variation_folder_for(asset_path: Path | str) -> str | None:
+    """Best-effort recovery of the ``variation_*`` batch folder two levels above
+    ``asset_path`` (``<variation_folder>/<subfolder>/<asset>``), or ``None`` for
+    authored heads that aren't nested under one.
+    """
+    grandparent = Path(asset_path).resolve().parent.parent.name
+    return grandparent if grandparent.startswith("variation_") else None
+
+
+def render_cache_key(asset_path: Path | str) -> str:
+    """Cache key for ``renders/<key>/``.
+
+    Plain ``asset.stem`` collides whenever a variation batch reuses the same
+    mesh filename across sibling ``variation_*`` folders (e.g.
+    ``variation_small_lips_001`` vs. ``_002``/``_003``), silently serving one
+    asset's previews for another. Folding ``variation_folder`` into the key
+    keeps each variation's renders in their own folder.
+    """
+    stem = Path(asset_path).stem
+    variation_folder = variation_folder_for(asset_path)
+    return f"{variation_folder}__{stem}" if variation_folder else stem
+
+
 def count_bad_joint_features(joint_features: dict[str, Any] | None) -> int:
     """Return how many joint markers are rated ``bad``."""
     if not joint_features:

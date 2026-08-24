@@ -38,6 +38,10 @@ With an asset path, primary outputs land in the repo cache:
     <project_root>/renders/<asset_stem>/front.png
     ...
 
+(or ``<variation_folder>__<asset_stem>/`` when the asset sits under a
+``variation_*`` batch folder, so sibling batches reusing the same mesh
+filename don't overwrite each other's previews.)
+
 Pass ``--views`` to include more angles, or ``--output-dir`` to override the cache path.
 In scene-only mode ``--output-dir`` is required.
 """
@@ -120,6 +124,19 @@ TARGET_ORTHO_SCALE = 0.4
 # cameraSetup.blend) rather than inferred from position.
 BOTTOM_CAMERA_NAME = "Camera.009"
 
+
+def _variation_folder_for(asset: Path) -> str | None:
+    """Best-effort recovery of the ``variation_*`` batch folder two levels above
+    ``asset`` (``<variation_folder>/<subfolder>/<asset>``), mirroring
+    ``ui/sort_assets.py``'s ``variation_folder_for`` heuristic."""
+    grandparent = asset.resolve().parent.parent.name
+    return grandparent if grandparent.startswith("variation_") else None
+
+
+def _render_cache_key(asset: Path, variation_folder: str | None) -> str:
+    stem = asset.stem
+    return f"{variation_folder}__{stem}" if variation_folder else stem
+
 # Horizontal angle bins in degrees (atan2(x, -y): 0 = front/-Y, +90 = side_l/+X).
 ANGLE_VIEWS = (
     (0.0, "front"),
@@ -164,7 +181,18 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help=(
             "Directory for PNGs. Default with an asset: "
-            "<project_root>/renders/<asset_stem>. Required when no asset is given."
+            "<project_root>/renders/<variation_folder>__<asset_stem> (or just "
+            "<asset_stem> outside a variation_* folder). Required when no asset is given."
+        ),
+    )
+    parser.add_argument(
+        "--variation-folder",
+        default=None,
+        help=(
+            "Disambiguates the default output dir when the same mesh filename is "
+            "reused across sibling variation_* batches. Auto-detected from the "
+            "asset's grandparent folder name if omitted; pass explicitly if that "
+            "heuristic doesn't apply to your layout."
         ),
     )
     parser.add_argument(
@@ -708,7 +736,9 @@ def main() -> None:
         if asset == scene_path:
             raise ValueError("Asset path must differ from the --scene template.")
 
-        output_dir = (args.output_dir or (PROJECT_ROOT / "renders" / asset.stem)).resolve()
+        variation_folder = args.variation_folder or _variation_folder_for(asset)
+        cache_key = _render_cache_key(asset, variation_folder)
+        output_dir = (args.output_dir or (PROJECT_ROOT / "renders" / cache_key)).resolve()
 
         # #region agent log
         _agent_log(

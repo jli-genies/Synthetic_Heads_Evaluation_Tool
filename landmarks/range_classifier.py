@@ -56,6 +56,13 @@ class RobustRangeAnomalyClassifier(ClassifierMixin, BaseEstimator):
         return self
 
     def _z(self, x: pd.DataFrame) -> pd.DataFrame:
+        # A caller building a single-row frame from a dict (e.g. scoring one
+        # asset) gets `object` dtype on any column holding a bare `None` for a
+        # missing feature -- pandas can't infer "this column is numeric" from
+        # a single None with no other rows to compare against. That breaks
+        # np.sqrt() downstream on a mixed-dtype row, so coerce to numeric
+        # (turning None/anything unparseable into NaN) before computing z.
+        x = pd.DataFrame(x).apply(pd.to_numeric, errors="coerce")
         return (x - self.medians_).abs() / self.scale_
 
     def _score(self, x: pd.DataFrame) -> np.ndarray:

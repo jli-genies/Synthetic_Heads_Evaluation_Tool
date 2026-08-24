@@ -190,6 +190,51 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_female_auth_asian_f_0013_frame_0009_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0001_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0001_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0007_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0007_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0008_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0008_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0011_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0011_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0012_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0012_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0014_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0014_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0018_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0018_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0019_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0019_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0020_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0020_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0022_frame_0001_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0022_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_001__asian_female_auth_asian_f_0022_frame_0001_subdiv_head_var_0.json"
@@ -255,6 +300,36 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_female_auth_asian_f_0022_frame_0010_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0001_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0001_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0004_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0004_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0005_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0005_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0008_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0008_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0013_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0013_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0014_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0014_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_short_faces_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0039_frame_0001_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0039_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_short_faces_001__asian_female_auth_asian_f_0039_frame_0001_subdiv_head_var_0.json"
@@ -270,6 +345,11 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_short_faces_001__asian_female_auth_asian_f_0040_frame_0003_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0005_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0005_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0006_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_001__asian_male_auth_asian_m_0016_frame_0006_subdiv_head_var_0.json"
@@ -280,9 +360,54 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_male_auth_asian_m_0016_frame_0006_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0006_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0006_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0010_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_001__asian_male_auth_asian_m_0016_frame_0010_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0010_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0010_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0012_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0012_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0015_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0015_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0017_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0017_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0010_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0010_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0014_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0014_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0015_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0015_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0018_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0018_subdiv_head_var_0.json"
   },
   {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_short_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0027_frame_0001_subdiv_head_var_0.glb",
@@ -1700,6 +1825,61 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_short_faces_001__asian_female_auth_asian_f_0018_frame_0003_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0002_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0002_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0003_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0003_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0004_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0004_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0005_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0005_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0006_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0006_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0009_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0009_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0010_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0010_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0013_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0013_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0015_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0015_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0016_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0016_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0019_frame_0017_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0019_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0019_frame_0017_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_short_faces_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0021_frame_0001_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0021_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_short_faces_001__asian_female_auth_asian_f_0021_frame_0001_subdiv_head_var_0.json"
@@ -1835,9 +2015,74 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_short_faces_001__asian_female_auth_asian_f_0036_frame_0002_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0002_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0002_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_short_faces_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0003_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_short_faces_001__asian_female_auth_asian_f_0036_frame_0003_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0003_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0003_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0006_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0006_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0007_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0007_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0009_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0009_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0010_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0010_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0011_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0011_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0012_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0012_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0015_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0015_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0017_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0017_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0018_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0018_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0019_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0019_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0036_frame_0020_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_female_loPoly_0036_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_female_auth_asian_f_0036_frame_0020_subdiv_head_var_0.json"
   },
   {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_short_faces_001\\cutted_mat_fixed\\asian_female_auth_asian_f_0039_frame_0002_subdiv_head_var_0.glb",
@@ -1925,9 +2170,19 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_male_auth_asian_m_0016_frame_0001_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0001_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0001_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0002_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_001__asian_male_auth_asian_m_0016_frame_0002_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0002_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0002_subdiv_head_var_0.json"
   },
   {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0003_subdiv_head_var_0.glb",
@@ -1940,6 +2195,11 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_male_auth_asian_m_0016_frame_0003_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0003_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0003_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0004_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_001__asian_male_auth_asian_m_0016_frame_0004_subdiv_head_var_0.json"
@@ -1948,6 +2208,11 @@
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_002\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0004_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_male_auth_asian_m_0016_frame_0004_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0004_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0004_subdiv_head_var_0.json"
   },
   {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0005_subdiv_head_var_0.glb",
@@ -1970,6 +2235,11 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_male_auth_asian_m_0016_frame_0007_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0007_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0007_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0008_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_001__asian_male_auth_asian_m_0016_frame_0008_subdiv_head_var_0.json"
@@ -1978,6 +2248,11 @@
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_002\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0008_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_male_auth_asian_m_0016_frame_0008_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0008_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0008_subdiv_head_var_0.json"
   },
   {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0009_subdiv_head_var_0.glb",
@@ -1990,9 +2265,49 @@
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_male_auth_asian_m_0016_frame_0009_subdiv_head_var_0.json"
   },
   {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0009_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0009_subdiv_head_var_0.json"
+  },
+  {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_002\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0010_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_long_faces_002__asian_male_auth_asian_m_0016_frame_0010_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0011_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0011_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0013_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0013_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0014_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0014_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0016_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0016_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0018_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0018_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0019_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0019_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0016_frame_0020_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0016_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0016_frame_0020_subdiv_head_var_0.json"
   },
   {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_short_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0017_frame_0001_subdiv_head_var_0.glb",
@@ -2008,6 +2323,86 @@
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_short_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0017_frame_0003_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0017_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_short_faces_001__asian_male_auth_asian_m_0017_frame_0003_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0001_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0001_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0002_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0002_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0003_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0003_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0004_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0004_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0005_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0005_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0006_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0006_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0007_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0007_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0008_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0008_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0009_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0009_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0011_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0011_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0012_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0012_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0013_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0013_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0016_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0016_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0017_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0017_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0019_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0019_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0018_frame_0020_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\asian_male_loPoly_0018_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__asian_male_auth_asian_m_0018_frame_0020_subdiv_head_var_0.json"
   },
   {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_short_faces_001\\cutted_mat_fixed\\asian_male_auth_asian_m_0023_frame_0001_subdiv_head_var_0.glb",
@@ -3078,6 +3473,106 @@
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_short_faces_001\\cutted_mat_fixed\\caucasian_female_auth_caucasian_f_0028_frame_0003_subdiv_head_var_0.glb",
     "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_female_loPoly_0028_grp.json",
     "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_short_faces_001__caucasian_female_auth_caucasian_f_0028_frame_0003_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0001_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0001_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0002_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0002_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0003_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0003_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0004_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0004_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0005_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0005_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0006_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0006_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0007_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0007_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0008_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0008_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0009_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0009_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0010_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0010_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0011_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0011_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0012_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0012_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0013_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0013_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0014_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0014_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0015_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0015_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0016_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0016_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0017_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0017_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0018_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0018_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0019_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0019_subdiv_head_var_0.json"
+  },
+  {
+    "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_small_lips_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0020_frame_0020_subdiv_head_var_0.glb",
+    "parent_landmarks": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw\\caucasian_male_loPoly_0020_grp.json",
+    "output": "C:\\Users\\auror\\Documents\\Github\\Synthetic_Heads_Evaluation_Tool\\landmarks_raw_variants\\variation_small_lips_001__caucasian_male_auth_caucasian_m_0020_frame_0020_subdiv_head_var_0.json"
   },
   {
     "asset": "C:\\Users\\auror\\Documents\\Gen3d_testing\\synthetic_heads\\dataset_5.1\\variation_long_faces_001\\cutted_mat_fixed\\caucasian_male_auth_caucasian_m_0025_frame_0001_subdiv_head_var_0.glb",

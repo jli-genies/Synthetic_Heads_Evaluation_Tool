@@ -29,7 +29,7 @@ Load an asset folder in the GUI to populate the asset tree.
 ## Workflow
 
 1. **Select assets** — Load a folder of `.glb` / `.fbx` heads in the asset tree.
-2. **Render (recommended)** — Use **Load/Render** (single asset) or **Render folder** to generate previews. Output lands in `renders/<asset_stem>/` (`front.png`, `side_r.png`).
+2. **Render (recommended)** — Use **Load/Render** (single asset) or **Render folder** to generate previews. Output lands in `renders/<asset_stem>/` (`front.png`, `side_r.png`), or `renders/<variation_folder>__<asset_stem>/` for assets nested under a `variation_*` batch folder, so sibling batches reusing the same mesh filename get separate previews.
 3. **Tag** — Click through assets and set attributes in the tag panel (schema-driven fields).
 4. **Save** — Use **Submit / Update attributes** to write two sidecars beside the mesh under `<asset_stem>/`: `<stem>_tags.json` (attributes) and `<stem>_joint_eval.json` (joint features). The source `.fbx` / `.glb` is also copied into that folder if missing.
 5. **Review** — Open the per-asset folder next to each source mesh to inspect saved tags.

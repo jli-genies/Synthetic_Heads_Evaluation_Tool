@@ -19,6 +19,11 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
+try:
+    from .sort_assets import render_cache_key
+except ImportError:  # Allow running this file directly.
+    from sort_assets import render_cache_key
+
 # #region agent log
 _DEBUG_LOG_PATH = Path(__file__).resolve().parents[1] / "debug-c44263.log"
 
@@ -211,11 +216,11 @@ class RenderPanel(QWidget):
                 "is_file": bool(self._asset_path and self._asset_path.is_file()),
                 "stem": self._asset_path.stem if self._asset_path else None,
                 "project_root": str(self.project_root),
-                "cache_dir": str(self.project_root / "renders" / self._asset_path.stem)
+                "cache_dir": str(self.project_root / "renders" / render_cache_key(self._asset_path))
                 if self._asset_path
                 else None,
                 "cache_exists": (
-                    (self.project_root / "renders" / self._asset_path.stem).is_dir()
+                    (self.project_root / "renders" / render_cache_key(self._asset_path)).is_dir()
                     if self._asset_path
                     else False
                 ),
@@ -267,7 +272,7 @@ class RenderPanel(QWidget):
 
         # Prefer the centralized repo cache, then fall back to legacy local folders.
         search_directories = [
-            self.project_root / "renders" / asset_path.stem,
+            self.project_root / "renders" / render_cache_key(asset_path),
             asset_path.parent / "renders" / asset_path.stem,
             asset_path.parent / f"{asset_path.stem}_renders",
             asset_path.parent / "renders",

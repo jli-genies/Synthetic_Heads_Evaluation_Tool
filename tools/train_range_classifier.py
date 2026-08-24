@@ -26,6 +26,7 @@ from pathlib import Path
 import joblib
 import numpy as np
 import pandas as pd
+from sklearn.metrics import balanced_accuracy_score, f1_score, roc_auc_score
 from sklearn.model_selection import StratifiedGroupKFold, cross_val_predict, cross_validate
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -87,6 +88,36 @@ def out_of_fold_predictions(
     )
 
 
+def report_populated_vs_pooled(oof: pd.DataFrame, x: pd.DataFrame) -> None:
+    """Split OOF metrics by whether a row has any chaos_* data at all.
+
+    Rows with every chaos_* feature missing (e.g. authored-head assets with no
+    HeadGen transform recorded) are trivially easy -- there's no discriminating
+    signal, so the "no evidence" fallback in RobustRangeAnomalyClassifier.predict
+    gets them right by construction, not by learning anything. Pooling them in
+    with real, populated-feature rows inflates balanced_accuracy/roc_auc without
+    reflecting any actual improvement at telling good variants from bad ones.
+    """
+    chaos_cols = [c for c in x.columns if c.startswith("chaos_")]
+    if not chaos_cols:
+        return
+    has_signal = (~x[chaos_cols].isna().all(axis=1)).reset_index(drop=True)
+    oof = oof.reset_index(drop=True)
+
+    print("Populated-only vs. pooled (see report_populated_vs_pooled docstring for why this split matters):")
+    for label, mask in [("no chaos_* data at all", ~has_signal), ("has chaos_* data (the real test)", has_signal)]:
+        subset = oof[mask.values]
+        if len(subset) == 0:
+            continue
+        y_true = (subset["actual_label"] == "good").astype(int)
+        y_pred = (subset["predicted_label"] == "good").astype(int)
+        bal_acc = balanced_accuracy_score(y_true, y_pred)
+        auc = roc_auc_score(y_true, subset["proba_good"]) if y_true.nunique() > 1 else float("nan")
+        f1 = f1_score(y_true, y_pred, zero_division=0)
+        print(f"  {label:<32} n={len(subset):<4} balanced_accuracy={bal_acc:.3f}  roc_auc={auc:.3f}  f1={f1:.3f}")
+    print()
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--csv", type=Path, default=DEFAULT_CSV, help="Path to training_dataset.csv.")
@@ -122,6 +153,7 @@ def main() -> None:
 
     oof = out_of_fold_predictions(model, x, y, groups, args.n_splits, asset_names)
     oof.to_csv(args.oof_out, index=False)
+    report_populated_vs_pooled(oof, x)
     wrong = oof[~oof["correct"]].assign(confidence=lambda d: (d["proba_good"] - 0.5).abs()).sort_values(
         "confidence", ascending=False
     )
