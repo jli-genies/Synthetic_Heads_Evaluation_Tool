@@ -111,6 +111,11 @@ def main() -> None:
     feature_row = compute_feature_row(output_path, parent_landmarks_path)
     feature_row.pop("asset", None)
     feature_row.pop("parent_asset", None)
+    # Present but unused unless the loaded model was trained with --group-cols
+    # (tools/train_range_classifier.py) -- then feature_columns includes these
+    # names and the model conditions its good-range on them.
+    feature_row["ethnicity"] = ethnicity
+    feature_row["gender"] = gender
 
     bundle = joblib.load(args.model)
     model, feature_columns = bundle["model"], bundle["feature_columns"]
@@ -130,9 +135,20 @@ def main() -> None:
     print(f"\npredicted_label:  {predicted_label}")
     print(f"proba_good:       {proba_good:.3f}")
     print(f"top_contributor:  {top_contributor}  (the joint furthest from its own good range, in std-devs)")
-    print("\nPer-joint good ranges vs. this asset's values:")
+
     ranges = model.range_table()
-    for feat in feature_columns:
+    measurement_cols = [c for c in feature_columns if not getattr(model, "group_cols", None) or c not in model.group_cols]
+    if getattr(model, "group_cols", None):
+        group_key = "|".join(str(feature_row.get(c)) for c in model.group_cols)
+        resolved_group = group_key if group_key in ranges.index.get_level_values("group") else "(pooled fallback)"
+        print(
+            f"\nGood range conditioned on {'/'.join(model.group_cols)}={group_key} "
+            f"({'own range' if resolved_group == group_key else 'too few good examples -- using pooled fallback'}):"
+        )
+        ranges = ranges.loc[resolved_group]
+
+    print("\nPer-joint good ranges vs. this asset's values:")
+    for feat in measurement_cols:
         value = feature_row.get(feat)
         lo, hi = ranges.loc[feat, "lower_2sigma"], ranges.loc[feat, "upper_2sigma"]
         flag = " <-- outside 2-sigma range" if value is not None and not (lo <= value <= hi) else ""

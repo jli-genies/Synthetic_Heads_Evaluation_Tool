@@ -123,19 +123,36 @@ def find_head_mesh(imported_objects: list, name_hint: str):
 
 
 def build_bvh(obj) -> BVHTree:
+    # BVHTree.FromObject builds the tree from the mesh's own local-space
+    # vertex data -- it does NOT apply obj.matrix_world. That's invisible
+    # whenever an asset's transform happens to already be baked into its
+    # vertex data (matrix_world ~= identity, true of every asset this was
+    # originally tested against), but it silently breaks for any asset whose
+    # object carries a real transform (e.g. a parent empty with a scale/
+    # rotation, seen in the gnm_variation_001_bad PCA batch) -- world-space
+    # query points get tested against un-transformed local-space geometry,
+    # so every landmark snaps to whatever's nearest by coincidence instead
+    # of the actual facial feature. project_landmarks() compensates by
+    # converting world-space query points into this object's local space
+    # before querying, then converting results back to world space.
     depsgraph = bpy.context.evaluated_depsgraph_get()
     return BVHTree.FromObject(obj, depsgraph)
 
 
-def project_landmarks(bvh: BVHTree, parent_landmarks: dict[str, list[float]]) -> tuple[dict, dict]:
+def project_landmarks(bvh: BVHTree, world_matrix, parent_landmarks: dict[str, list[float]]) -> tuple[dict, dict]:
     landmarks: dict[str, list[float]] = {}
     snap_distances: dict[str, float] = {}
+    world_to_local = world_matrix.inverted()
     for name, position in parent_landmarks.items():
-        location, _normal, _index, distance = bvh.find_nearest(Vector(position))
+        seed_world = Vector(position)
+        location, _normal, _index, _local_distance = bvh.find_nearest(world_to_local @ seed_world)
         if location is None:
             raise RuntimeError(f"BVH nearest-point query failed for landmark '{name}'.")
-        landmarks[name] = [location.x, location.y, location.z]
-        snap_distances[name] = distance
+        location_world = world_matrix @ location
+        landmarks[name] = [location_world.x, location_world.y, location_world.z]
+        # World-space distance, not the local-space one find_nearest returns --
+        # comparable across assets regardless of this object's own scale.
+        snap_distances[name] = (location_world - seed_world).length
     return landmarks, snap_distances
 
 
@@ -147,7 +164,7 @@ def process_variant(asset: Path, parent_landmarks_path: Path, output_path: Path,
     imported = import_asset(asset)
     head = find_head_mesh(imported, mesh_name_hint)
     bvh = build_bvh(head)
-    landmarks, snap_distances = project_landmarks(bvh, parent_landmarks)
+    landmarks, snap_distances = project_landmarks(bvh, head.matrix_world, parent_landmarks)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(

@@ -42,13 +42,18 @@ META_COLUMNS = ["asset", "parent_asset", "label", "variation_folder", "ethnicity
 SCORING = ["f1", "balanced_accuracy", "roc_auc"]
 
 
-def load_dataset(csv_path: Path, feature_prefix: str) -> tuple[pd.DataFrame, pd.Series, pd.Series, pd.Series, list[str]]:
+def load_dataset(
+    csv_path: Path, feature_prefix: str, group_cols: list[str] | None = None
+) -> tuple[pd.DataFrame, pd.Series, pd.Series, pd.Series, list[str]]:
     df = pd.read_csv(csv_path)
     if feature_prefix == "all":
         feature_cols = [c for c in df.columns if c not in META_COLUMNS]
     else:
         feature_cols = [c for c in df.columns if c.startswith(feature_prefix)]
-    x = df[feature_cols]
+    # group_cols (e.g. ethnicity/gender) ride along in x so the model can
+    # condition its good-range on them, but aren't part of feature_cols --
+    # callers that need "just the measurements" (e.g. reporting) still get that.
+    x = df[feature_cols + (group_cols or [])]
     y = (df["label"] == "good").astype(int)
     groups = df["head_id"]
     return x, y, groups, df["asset"], feature_cols
@@ -69,7 +74,9 @@ def out_of_fold_predictions(
 
     top_contributor = pd.Series(index=x.index, dtype=object)
     for train_idx, test_idx in cv.split(x, y, groups):
-        fold_model = RobustRangeAnomalyClassifier(score_agg=model.score_agg)
+        fold_model = RobustRangeAnomalyClassifier(
+            score_agg=model.score_agg, group_cols=model.group_cols, min_group_size=model.min_group_size
+        )
         fold_model.fit(x.iloc[train_idx], y.iloc[train_idx])
         top_contributor.iloc[test_idx] = fold_model.top_contributors(x.iloc[test_idx]).values
 
@@ -128,6 +135,21 @@ def parse_args() -> argparse.Namespace:
         help="Column prefix to build ranges over ('chaos_', 'dist_', ... or 'all' for every feature column).",
     )
     parser.add_argument("--score-agg", choices=["rms", "max"], default="rms", help="How to combine per-joint z-scores.")
+    parser.add_argument(
+        "--group-cols",
+        default=None,
+        help=(
+            "Comma-separated metadata columns to condition the good range on, e.g. 'ethnicity,gender'. "
+            "Each group gets its own median/scale from its own good rows; groups with fewer than "
+            "--min-group-size good rows fall back to the pooled range. Omit for one pooled range (default)."
+        ),
+    )
+    parser.add_argument(
+        "--min-group-size",
+        type=int,
+        default=8,
+        help="Minimum good-row count for a group to get its own range instead of falling back to pooled.",
+    )
     parser.add_argument("--model-out", type=Path, default=DEFAULT_MODEL_OUT, help="Where to save the final fitted model.")
     parser.add_argument("--oof-out", type=Path, default=DEFAULT_OOF_OUT, help="Where to save per-asset out-of-fold predictions.")
     return parser.parse_args()
@@ -135,18 +157,23 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    x, y, groups, asset_names, feature_cols = load_dataset(args.csv, args.feature_prefix)
+    group_cols = args.group_cols.split(",") if args.group_cols else None
+    x, y, groups, asset_names, feature_cols = load_dataset(args.csv, args.feature_prefix, group_cols)
     print(f"Loaded {len(x)} rows, {len(feature_cols)} features ({args.feature_prefix}), {groups.nunique()} distinct head_id groups.")
-    print(f"Label balance: {y.sum()} good / {(1 - y).sum()} bad.\n")
+    print(f"Label balance: {y.sum()} good / {(1 - y).sum()} bad.")
+    if group_cols:
+        print(f"Grouped by: {', '.join(group_cols)} (min_group_size={args.min_group_size})\n")
+    else:
+        print()
 
-    model = RobustRangeAnomalyClassifier(score_agg=args.score_agg)
+    model = RobustRangeAnomalyClassifier(score_agg=args.score_agg, group_cols=group_cols, min_group_size=args.min_group_size)
     scores = evaluate(model, x, y, groups, args.n_splits)
     print(f"[range_anomaly:{args.score_agg}] {args.n_splits}-fold StratifiedGroupKFold (grouped by head_id):")
     for metric in SCORING:
         values = scores[f"test_{metric}"]
         print(f"  {metric:<18} {values.mean():.3f} +/- {values.std():.3f}  {np.round(values, 3)}")
 
-    final_model = RobustRangeAnomalyClassifier(score_agg=args.score_agg)
+    final_model = RobustRangeAnomalyClassifier(score_agg=args.score_agg, group_cols=group_cols, min_group_size=args.min_group_size)
     final_model.fit(x, y)
     print(f"\nPer-joint good ranges (fit on all {len(x)} rows), threshold={final_model.threshold_:.3f}:")
     print(final_model.range_table().round(3))
@@ -169,7 +196,9 @@ def main() -> None:
             )
 
     args.model_out.parent.mkdir(parents=True, exist_ok=True)
-    joblib.dump({"model": final_model, "feature_columns": feature_cols}, args.model_out)
+    # feature_columns must match what a caller needs to supply at inference (tools/predict_asset_range.py
+    # rebuilds a one-row frame strictly from this list) -- group_cols ride along in x so include them here too.
+    joblib.dump({"model": final_model, "feature_columns": feature_cols + (group_cols or [])}, args.model_out)
     print(f"\nFinal model (fit on all {len(x)} rows) saved to {args.model_out}")
 
 
