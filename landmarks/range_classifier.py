@@ -160,6 +160,43 @@ class RobustRangeAnomalyClassifier(ClassifierMixin, BaseEstimator):
         """Public per-feature |z|-score table, one row per input row."""
         return self._z(pd.DataFrame(x))
 
+    def region_scores(self, x: pd.DataFrame, regions: dict[str, list[str]]) -> pd.DataFrame:
+        """RMS of per-feature |z| within each named region (see
+        landmarks/ratios.py's regions_to_features()) -- the same aggregation
+        predict()/predict_proba() use overall, scoped to one region's features.
+
+        Diagnostic only: this exists to show a reviewer *why* the overall
+        score landed where it did, not to replace it. Deriving a bucket
+        decision by tallying flagged regions would reintroduce exactly the
+        false-positive compounding this class's RMS design exists to avoid
+        (see module docstring) -- the single combined predict()/predict_proba()
+        score stays the actual verdict.
+        """
+        z = self._z(pd.DataFrame(x))
+        scores = {}
+        for region, cols in regions.items():
+            present = [c for c in cols if c in z.columns]
+            if not present:
+                continue
+            scores[region] = np.sqrt((z[present] ** 2).mean(axis=1, skipna=True))
+        return pd.DataFrame(scores, index=z.index)
+
+    def region_top_contributors(self, x: pd.DataFrame, regions: dict[str, list[str]]) -> pd.DataFrame:
+        """Name of the single feature with the largest |z| within each region, per row."""
+        z = self._z(pd.DataFrame(x))
+        result = {}
+        for region, cols in regions.items():
+            present = [c for c in cols if c in z.columns]
+            if not present:
+                continue
+            sub = z[present]
+            has_any = sub.notna().any(axis=1)
+            col = pd.Series(np.nan, index=sub.index, dtype=object)
+            if has_any.any():
+                col.loc[has_any] = sub.loc[has_any].idxmax(axis=1, skipna=True)
+            result[region] = col
+        return pd.DataFrame(result, index=z.index)
+
     def range_table(self) -> pd.DataFrame:
         """Human-readable per-joint good range (median +/- 2*scale).
 

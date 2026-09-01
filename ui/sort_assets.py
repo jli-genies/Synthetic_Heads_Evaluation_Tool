@@ -1,8 +1,10 @@
-"""Sort assets into good / bad lists from joint-feature ratings.
+"""Sort assets into good / bad lists from the reviewer's overall verdict.
 
-Buckets (by count of ``"bad"`` joint markers):
-  - good: 0 bad
-  - bad:  1+ bad
+The verdict comes from a single Good/Bad control on the Face Proportions tab
+(pre-filled from landmarks/range_classifier.py's RMS-combined score against
+its tuned threshold, then reviewer-correctable) -- never derived by tallying
+flagged regions, which would reintroduce the false-positive compounding the
+RMS design exists to avoid (see landmarks/range_classifier.py's docstring).
 
 List files live under ``lists/good.json`` and ``lists/bad.json``. Each file is
 a JSON array of ``{"name": <asset filename>, "variation_folder": <str|null>}``
@@ -50,18 +52,14 @@ def render_cache_key(asset_path: Path | str) -> str:
     return f"{variation_folder}__{stem}" if variation_folder else stem
 
 
-def count_bad_joint_features(joint_features: dict[str, Any] | None) -> int:
-    """Return how many joint markers are rated ``bad``."""
-    if not joint_features:
-        return 0
-    return sum(1 for value in joint_features.values() if value == "bad")
+def classify_overall_verdict(overall_verdict: str | None) -> Bucket:
+    """Map the reviewer's single overall Good/Bad control to a quality bucket.
 
-
-def classify_joint_features(joint_features: dict[str, Any] | None) -> Bucket:
-    """Map joint-feature ratings to a quality bucket."""
-    if count_bad_joint_features(joint_features) == 0:
-        return "good"
-    return "bad"
+    Defaults to "good" for "Not specified" -- matches the pre-region-panel
+    behavior where every rating defaulted to good unless a reviewer flagged
+    something.
+    """
+    return "bad" if overall_verdict == "bad" else "good"
 
 
 def _lists_dir(project_root: Path) -> Path:
@@ -107,10 +105,10 @@ def _write_entries(path: Path, entries: list[dict[str, Any]]) -> None:
     path.write_text(json.dumps(ordered, indent=2) + "\n", encoding="utf-8")
 
 
-def sort_asset_by_joint_features(
+def sort_asset_by_overall_verdict(
     project_root: Path | str,
     asset_name: str,
-    joint_features: dict[str, Any] | None,
+    overall_verdict: str | None,
     variation_folder: str | None = None,
 ) -> Bucket:
     """Place ``asset_name`` (scoped to ``variation_folder``, if any) into the
@@ -119,7 +117,7 @@ def sort_asset_by_joint_features(
     Returns the bucket the asset was assigned to.
     """
     root = Path(project_root)
-    target = classify_joint_features(joint_features)
+    target = classify_overall_verdict(overall_verdict)
     name = Path(asset_name).name
     key = (name, variation_folder)
     # A legacy (name, None) entry predates variation_folder tracking and is

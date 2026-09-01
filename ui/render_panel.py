@@ -173,7 +173,7 @@ class RenderPanel(QWidget):
         tiles_scroll.setWidget(tiles_host)
         tiles_scroll.setMinimumHeight(PREVIEW_SIZE + 24)
 
-        self.joint_eval_button = QPushButton("Evaluate joints")
+        self.joint_eval_button = QPushButton("Evaluate proportions")
         self.joint_eval_button.setObjectName("primaryButton")
         self.joint_eval_button.setEnabled(False)
         self.joint_eval_button.clicked.connect(self.joint_eval_requested)

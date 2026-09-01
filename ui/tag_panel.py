@@ -22,21 +22,21 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-# HeadGen chaos_joints.json bind markers used for per-feature quality ratings.
-CHAOS_JOINT_MARKERS: tuple[str, ...] = (
-    "FaceBind",
-    "JawBind",
-    "LeftBrowBind",
-    "RightBrowBind",
-    "LeftCheekBind",
-    "RightCheekBind",
-    "LeftCheekBoneBind",
-    "RightCheekBoneBind",
-    "LeftEyeSocketBind",
-    "RightEyeSocketBind",
-    "MouthBind",
-    "MouthInnerBind",
-    "NoseBind",
+# Face-region categories the range-anomaly model scores against (see
+# landmarks/ratios.py's FEATURE_REGIONS -- these ids must stay in sync with
+# that mapping). Labels are pulled from tag_schema.json's own categories at
+# build time, not hardcoded here, so this tab and the Attributes tab never
+# drift on wording for the same region.
+FACE_REGIONS: tuple[str, ...] = (
+    "eyes_shape",
+    "brow_shape",
+    "nose_shape",
+    "cheeks_shape",
+    "mouth_shape",
+    "lips_shape",
+    "chin_shape",
+    "jaw_shape",
+    "head_shape",
 )
 
 JOINT_FEATURE_OPTIONS: tuple[tuple[str, str], ...] = (
@@ -135,7 +135,9 @@ class TagPanel(QWidget):
         self.schema_path = Path(schema_path)
         self.schema = self._load_schema()
         self.controls: dict[tuple[str, str], QComboBox] = {}
-        self.joint_controls: dict[str, QComboBox] = {}
+        self.region_controls: dict[str, QComboBox] = {}
+        self.region_info_labels: dict[str, QLabel] = {}
+        self.overall_control: QComboBox | None = None
         self.setMinimumWidth(300)
 
         title = QLabel("Tag Attributes")
@@ -148,7 +150,7 @@ class TagPanel(QWidget):
 
         self.tabs = QTabWidget()
         self.tabs.addTab(self._build_attributes_tab(), "Attributes")
-        self.tabs.addTab(self._build_joint_features_tab(), "Joint Features")
+        self.tabs.addTab(self._build_face_proportions_tab(), "Face Proportions")
 
         self.submit_button = QPushButton("Submit / update attributes")
         self.submit_button.setObjectName("primaryButton")
@@ -176,36 +178,73 @@ class TagPanel(QWidget):
         scroll.setWidget(fields_widget)
         return scroll
 
-    def _build_joint_features_tab(self) -> QWidget:
-        """Good/bad ratings for each HeadGen chaos joint feature."""
+    def _region_label(self, region_id: str) -> str:
+        """Human-readable label for a face region, pulled from tag_schema.json's
+        own categories so this tab never drifts from the Attributes tab's wording."""
+        for category in self.schema.get("categories", []):
+            if category.get("id") == region_id:
+                return category.get("label", region_id)
+        return region_id
+
+    def _build_face_proportions_tab(self) -> QWidget:
+        """Overall good/bad verdict, plus a per-region deviation breakdown.
+
+        The overall verdict is the actual bucket decision (pre-filled from the
+        model's single RMS-combined score against its tuned threshold, then
+        reviewer-correctable) -- region ratings below are diagnostic only.
+        Tallying flagged regions is deliberately NOT how the verdict is
+        derived; see ui/sort_assets.py's module docstring for why.
+        """
         content = QWidget()
         content_layout = QVBoxLayout(content)
         content_layout.setContentsMargins(4, 4, 4, 4)
         content_layout.setSpacing(10)
 
         hint = QLabel(
-            "All chaos joint features default to good. Mark only the bad ones "
-            "relative to the authored ground-truth head, then Submit."
+            "Overall verdict defaults to good until Evaluate proportions runs or you "
+            "set it yourself. Per-region ratings below explain why, but don't decide it."
         )
         hint.setObjectName("tagStatus")
         hint.setWordWrap(True)
         content_layout.addWidget(hint)
 
-        group = QGroupBox("Chaos joint markers")
+        verdict_group = QGroupBox("Overall verdict")
+        verdict_form = QFormLayout(verdict_group)
+        verdict_form.setFieldGrowthPolicy(QFormLayout.FieldGrowthPolicy.AllNonFixedFieldsGrow)
+        self.overall_control = QComboBox()
+        for label, value in JOINT_FEATURE_OPTIONS:
+            self.overall_control.addItem(label, value)
+        self.overall_control.setCurrentIndex(self.overall_control.findData("good"))
+        self.overall_control.setMinimumWidth(190)
+        verdict_form.addRow("This asset is", self.overall_control)
+        content_layout.addWidget(verdict_group)
+
+        group = QGroupBox("Face regions (diagnostic)")
         form = QFormLayout(group)
         form.setFieldGrowthPolicy(QFormLayout.FieldGrowthPolicy.AllNonFixedFieldsGrow)
         form.setHorizontalSpacing(12)
         form.setVerticalSpacing(8)
 
-        for marker in CHAOS_JOINT_MARKERS:
+        for region in FACE_REGIONS:
+            row = QWidget()
+            row_layout = QVBoxLayout(row)
+            row_layout.setContentsMargins(0, 0, 0, 0)
+            row_layout.setSpacing(2)
+
+            info_label = QLabel("Not yet evaluated")
+            info_label.setObjectName("tagStatus")
+            self.region_info_labels[region] = info_label
+            row_layout.addWidget(info_label)
+
             control = QComboBox()
             for label, value in JOINT_FEATURE_OPTIONS:
                 control.addItem(label, value)
-            # Default to "good"; reviewers only change markers that are bad.
             control.setCurrentIndex(control.findData("good"))
             control.setMinimumWidth(190)
-            self.joint_controls[marker] = control
-            form.addRow(marker, control)
+            self.region_controls[region] = control
+            row_layout.addWidget(control)
+
+            form.addRow(self._region_label(region), row)
 
         content_layout.addWidget(group)
         content_layout.addStretch()
@@ -243,34 +282,72 @@ class TagPanel(QWidget):
                 index = control.findData(value)
                 control.setCurrentIndex(max(0, index))
 
-    def default_joint_features(self) -> dict[str, str]:
-        """All chaos joint markers rated ``good``."""
-        return {marker: "good" for marker in CHAOS_JOINT_MARKERS}
+    def default_region_features(self) -> dict[str, str]:
+        """All face regions rated ``good``."""
+        return {region: "good" for region in FACE_REGIONS}
 
-    def joint_features(self) -> dict[str, str]:
-        """Return good/bad ratings for every chaos joint marker.
+    def region_features(self) -> dict[str, str]:
+        """Return good/bad diagnostic ratings for every face region.
 
         Unset controls fall back to ``good`` so exports always include a full map.
         """
         values: dict[str, str] = {}
-        for marker, control in self.joint_controls.items():
+        for region, control in self.region_controls.items():
             value = control.currentData() or ""
-            values[marker] = value if value in {"good", "bad"} else "good"
+            values[region] = value if value in {"good", "bad"} else "good"
         return values
 
-    def set_joint_features(self, features: dict[str, Any] | None) -> None:
-        """Populate joint feature ratings. Missing markers default to ``good``."""
+    def set_region_features(self, features: dict[str, Any] | None) -> None:
+        """Populate per-region diagnostic ratings. Missing regions default to ``good``."""
         features = features or {}
-        for marker, control in self.joint_controls.items():
-            value = features.get(marker, "good")
+        for region, control in self.region_controls.items():
+            value = features.get(region, "good")
             if not isinstance(value, str) or value not in {"good", "bad"}:
                 value = "good"
             index = control.findData(value)
             control.setCurrentIndex(max(0, index))
 
+    def set_region_scores(
+        self, scores: dict[str, float] | None, top_contributors: dict[str, str] | None
+    ) -> None:
+        """Show each region's deviation magnitude and top-contributing measurement.
+
+        Purely informational -- doesn't touch the good/bad controls themselves.
+        """
+        scores = scores or {}
+        top_contributors = top_contributors or {}
+        for region, label in self.region_info_labels.items():
+            score = scores.get(region)
+            if score is None:
+                label.setText("Not yet evaluated")
+                continue
+            contributor = top_contributors.get(region, "n/a")
+            label.setText(f"z={score:.2f} · top: {contributor}")
+
+    def default_overall_verdict(self) -> str:
+        return "good"
+
+    def overall_verdict(self) -> str:
+        """The reviewer's single overall Good/Bad call -- this, not a region
+        tally, is what ui/sort_assets.py buckets the asset by."""
+        if self.overall_control is None:
+            return self.default_overall_verdict()
+        value = self.overall_control.currentData() or ""
+        return value if value in {"good", "bad"} else "good"
+
+    def set_overall_verdict(self, verdict: str | None) -> None:
+        if self.overall_control is None:
+            return
+        if not isinstance(verdict, str) or verdict not in {"good", "bad"}:
+            verdict = "good"
+        index = self.overall_control.findData(verdict)
+        self.overall_control.setCurrentIndex(max(0, index))
+
     def clear(self) -> None:
         self.set_tags({})
-        self.set_joint_features(self.default_joint_features())
+        self.set_region_features(self.default_region_features())
+        self.set_overall_verdict(self.default_overall_verdict())
+        self.set_region_scores(None, None)
 
     def _load_schema(self) -> dict[str, Any]:
         try:

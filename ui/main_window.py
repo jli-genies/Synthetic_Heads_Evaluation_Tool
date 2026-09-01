@@ -20,12 +20,12 @@ from PyQt6.QtWidgets import (
 try:
     from .asset_tree import AssetTree
     from .render_panel import RenderPanel
-    from .sort_assets import render_cache_key, sort_asset_by_joint_features, variation_folder_for
+    from .sort_assets import render_cache_key, sort_asset_by_overall_verdict, variation_folder_for
     from .tag_panel import TagPanel
 except ImportError:  # Allow running this file directly.
     from asset_tree import AssetTree
     from render_panel import RenderPanel
-    from sort_assets import render_cache_key, sort_asset_by_joint_features, variation_folder_for
+    from sort_assets import render_cache_key, sort_asset_by_overall_verdict, variation_folder_for
     from tag_panel import TagPanel
 
 # Association layer lives at project root (sibling of ui/).
@@ -129,7 +129,10 @@ class MainWindow(QMainWindow):
 
         if self.current_asset:
             self.tag_panel.set_tags(self._load_tags(self.current_asset))
-            self.tag_panel.set_joint_features(self._load_joint_features(self.current_asset))
+            region_eval = self._load_region_eval(self.current_asset)
+            self.tag_panel.set_region_features(region_eval.get("region_features"))
+            self.tag_panel.set_overall_verdict(region_eval.get("overall_verdict"))
+            self.tag_panel.set_region_scores(None, None)
             self.status_bar.showMessage(f"Selected {self.current_asset.name}")
         else:
             self.tag_panel.clear()
@@ -167,7 +170,8 @@ class MainWindow(QMainWindow):
         if not self.current_asset:
             return
 
-        joint_features = self.tag_panel.joint_features()
+        region_features = self.tag_panel.region_features()
+        overall_verdict = self.tag_panel.overall_verdict()
         tag_path = self._tag_path(self.current_asset)
         joint_path = self._joint_eval_path(self.current_asset)
         tags_payload = {
@@ -177,7 +181,8 @@ class MainWindow(QMainWindow):
         }
         joint_payload = {
             "asset": self.current_asset.name,
-            "joint_features": joint_features,
+            "overall_verdict": overall_verdict,
+            "region_features": region_features,
         }
         try:
             tag_path.parent.mkdir(parents=True, exist_ok=True)
@@ -187,10 +192,10 @@ class MainWindow(QMainWindow):
             )
             self._ensure_asset_copy_in_tag_dir(self.current_asset)
             variation_folder = variation_folder_for(self.current_asset)
-            bucket = sort_asset_by_joint_features(
+            bucket = sort_asset_by_overall_verdict(
                 self.project_root,
                 self.current_asset.name,
-                joint_features,
+                overall_verdict,
                 variation_folder=variation_folder,
             )
         except OSError as error:
@@ -201,21 +206,22 @@ class MainWindow(QMainWindow):
         joint_display = self._display_path(joint_path)
         self.tag_panel.status_label.setText(f"Saved: {tag_display}")
         self.status_bar.showMessage(
-            f"Saved attributes → {tag_display}; joints → {joint_display} "
+            f"Saved attributes → {tag_display}; proportions → {joint_display} "
             f"(sorted to lists/{bucket}.json)",
             5000,
         )
 
     def run_joint_eval(self) -> None:
         """Score the current asset with the range-anomaly model (tools/predict_asset_range.py)
-        and pre-fill the Joint Features tab with its per-joint good/bad verdicts."""
+        and pre-fill the Face Proportions tab: overall verdict from the model's tuned
+        threshold, per-region diagnostic ratings and deviation scores from its regions."""
         if not self.current_asset:
             return
         if self._joint_eval_process is not None:
-            self.status_bar.showMessage("Joint evaluation already running…", 4000)
+            self.status_bar.showMessage("Evaluation already running…", 4000)
             return
 
-        model_path = self.project_root / "landmarks" / "model_range.joblib"
+        model_path = self.project_root / "landmarks" / "model_range_ratio_grouped.joblib"
         if not model_path.is_file():
             QMessageBox.critical(
                 self,
@@ -228,7 +234,7 @@ class MainWindow(QMainWindow):
         script = self.project_root / "tools" / "predict_asset_range.py"
         output_dir = self.project_root / "renders" / render_cache_key(self.current_asset)
         output_dir.mkdir(parents=True, exist_ok=True)
-        output_json = output_dir / "joint_eval_predicted.json"
+        output_json = output_dir / "proportion_eval_predicted.json"
 
         variation_folder = variation_folder_for(self.current_asset)
 
@@ -246,7 +252,7 @@ class MainWindow(QMainWindow):
         self._joint_eval_output_json = output_json
         self._joint_eval_asset = self.current_asset
         self.render_panel.set_joint_eval_enabled(False)
-        self.status_bar.showMessage(f"Evaluating joints for {self.current_asset.name}…")
+        self.status_bar.showMessage(f"Evaluating proportions for {self.current_asset.name}…")
 
         process = QProcess(self)
         process.setProcessChannelMode(QProcess.ProcessChannelMode.MergedChannels)
@@ -300,24 +306,31 @@ class MainWindow(QMainWindow):
             self.status_bar.showMessage("Joint evaluation failed", 7000)
             return
 
-        joint_features = result.get("joint_features")
-        if not isinstance(joint_features, dict):
-            joint_features = {}
-        bad_markers = [marker for marker, value in joint_features.items() if value == "bad"]
+        region_features = result.get("region_features")
+        if not isinstance(region_features, dict):
+            region_features = {}
+        region_scores = result.get("region_scores")
+        region_top_contributor = result.get("region_top_contributor")
+        bad_regions = [region for region, value in region_features.items() if value == "bad"]
 
         if asset and self.current_asset and asset.resolve() == self.current_asset.resolve():
-            self.tag_panel.set_joint_features(joint_features)
+            self.tag_panel.set_overall_verdict(result.get("predicted_label"))
+            self.tag_panel.set_region_features(region_features)
+            self.tag_panel.set_region_scores(
+                region_scores if isinstance(region_scores, dict) else None,
+                region_top_contributor if isinstance(region_top_contributor, dict) else None,
+            )
             summary = (
-                f"Model flagged {len(bad_markers)} joint(s) as bad: {', '.join(bad_markers)}"
-                if bad_markers
-                else "Model found no joints outside their good range"
+                f"Model flagged {len(bad_regions)} region(s) as outside their good range: {', '.join(bad_regions)}"
+                if bad_regions
+                else "Model found no region outside its good range"
             )
             self.tag_panel.status_label.setText(f"{summary} — review and Submit")
 
         self.status_bar.showMessage(
-            f"Joint eval: proba_good={result.get('proba_good', 0):.2f}, "
+            f"Proportion eval: proba_good={result.get('proba_good', 0):.2f}, "
             f"top_contributor={result.get('top_contributor', 'n/a')} "
-            "(model is a rough signal, not a verdict — review before Submit)",
+            "(overall verdict pre-filled from this — review before Submit)",
             9000,
         )
 
@@ -400,31 +413,23 @@ class MainWindow(QMainWindow):
                 return self._read_json_dict(candidate).get("tags", {})
         return {}
 
-    def _load_joint_features(self, asset_path: Path) -> dict:
-        """Load joint feature ratings, preferring the per-asset sidecar."""
-        primary = self._joint_eval_path(asset_path)
-        if primary.is_file():
-            payload = self._read_json_dict(primary)
-            features = payload.get("joint_features", payload)
-            return features if isinstance(features, dict) else {}
+    def _load_region_eval(self, asset_path: Path) -> dict:
+        """Load the per-asset region evaluation (overall verdict + per-region
+        diagnostic ratings), preferring the per-asset sidecar.
 
-        # Combined legacy files may still carry joint_features.
-        for candidate in (
-            self._tag_path(asset_path),
-            self.project_root / "tags" / f"{asset_path.name}.tags.json",
-            asset_path.with_name(f"{asset_path.name}.tags.json"),
-            self.project_root
-            / "joint_features"
-            / asset_path.stem
-            / f"{asset_path.stem}_joint_eval.json",
-        ):
-            if not candidate.is_file():
-                continue
-            payload = self._read_json_dict(candidate)
-            features = payload.get("joint_features")
-            if isinstance(features, dict):
-                return features
-        return {}
+        Older sidecars saved before this schema (key ``joint_features``, from
+        the per-bind chaos-joint tab this replaced) have no region data to
+        recover -- ``.get()`` on the new keys naturally returns None for
+        those, same as a first-time evaluation.
+        """
+        primary = self._joint_eval_path(asset_path)
+        if not primary.is_file():
+            return {}
+        payload = self._read_json_dict(primary)
+        return {
+            "region_features": payload.get("region_features"),
+            "overall_verdict": payload.get("overall_verdict"),
+        }
 
     def _display_path(self, path: Path) -> str:
         try:

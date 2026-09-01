@@ -53,6 +53,44 @@ RATIO_DEFINITIONS: tuple[tuple[str, str, str], ...] = (
 # head scale.
 REFERENCE_MEASUREMENT = "interocular_inner"
 
+# Maps each RATIO_DEFINITIONS measurement to the tag_schema.json face-region
+# category/categories it speaks to (category ids, so callers building UI
+# labels can pull them straight from tag_schema.json's own categories rather
+# than a second copy). A handful of measurements are inherently inter-regional
+# (e.g. eye_to_mouth_*) and appear under every region they touch, rather than
+# being forced into one.
+FEATURE_REGIONS: dict[str, tuple[str, ...]] = {
+    "interocular_outer": ("eyes_shape",),
+    "eye_width_left": ("eyes_shape",),
+    "eye_width_right": ("eyes_shape",),
+    "eye_to_nose_tip_left": ("eyes_shape", "nose_shape"),
+    "eye_to_nose_tip_right": ("eyes_shape", "nose_shape"),
+    "eye_to_mouth_left": ("eyes_shape", "mouth_shape"),
+    "eye_to_mouth_right": ("eyes_shape", "mouth_shape"),
+    "nose_width": ("nose_shape",),
+    "nose_length": ("nose_shape",),
+    "mouth_width": ("mouth_shape",),
+    "lip_height": ("lips_shape",),
+    "jaw_width": ("jaw_shape",),
+    "cheekbone_width": ("cheeks_shape",),
+    "face_height": ("head_shape",),
+    "chin_to_mouth": ("chin_shape", "mouth_shape"),
+    "brow_width_left": ("brow_shape",),
+    "brow_width_right": ("brow_shape",),
+    "brow_span": ("brow_shape",),
+}
+
+
+def regions_to_features(prefix: str = "ratio_") -> dict[str, list[str]]:
+    """{region: [feature_column, ...]}, inverse of FEATURE_REGIONS with the
+    feature-column prefix applied -- what range_classifier's region_scores()
+    and any caller building a per-region breakdown needs."""
+    out: dict[str, list[str]] = {}
+    for measurement, regions in FEATURE_REGIONS.items():
+        for region in regions:
+            out.setdefault(region, []).append(f"{prefix}{measurement}")
+    return out
+
 
 def load_config(path: str | Path) -> dict:
     import json
